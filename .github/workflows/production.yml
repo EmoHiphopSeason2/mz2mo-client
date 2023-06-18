@@ -11,7 +11,7 @@ env:
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: ${{ secrets.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }}
 
 jobs:
-  build:
+  build-project:
     runs-on: ubuntu-latest
 
     steps:
