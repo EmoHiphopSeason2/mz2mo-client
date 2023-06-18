@@ -7,6 +7,5 @@
   "arrowParens": "always",
   "useTabs": false,
   "bracketSpacing": true,
-  "jsxBracketSameLine": false,
   "quoteProps": "as-needed"
 }
