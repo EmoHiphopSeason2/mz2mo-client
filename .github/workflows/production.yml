@@ -56,12 +56,10 @@ jobs:
       - name: Build next app
         run: pnpm build
 
-      # S3에 업로드할 빌드 파일 생성 및 zip 압축
       - name: Make zip file
         run: zip -qq -r ./$GITHUB_SHA.zip . -x "node_modules/*"
         shell: bash
 
-      # AWS Credentials (인증 절차) 진행
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -69,11 +67,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_ID }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # 빌드된 파일을 S3에 업로드
       - name: Upload to S3
         run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
 
-      # S3에 업로드된 파일을 CodeDeploy가 로드
       - name: Code Deploy
         run: |
           aws deploy create-deployment \

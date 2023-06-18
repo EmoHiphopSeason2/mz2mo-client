@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/mzo-deploy # EC2 인스턴스 안에 프로젝트를 저장할 경로.
+    destination: /home/ubuntu/mzo-deploy
     overwrite: yes
 permissions:
   - object: /home/ubuntu/mzo-deploy
@@ -10,7 +10,7 @@ permissions:
     group: root
     mode: 755
 hooks:
-  AfterInstall: # 배포 완료 이후 실행할 Action 설정
+  AfterInstall:
     - location: deploy.sh
       timeout: 1000
-      runas: root # root 권한으로 실행
+      runas: root
