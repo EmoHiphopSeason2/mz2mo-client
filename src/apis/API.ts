@@ -1,6 +1,6 @@
 import ky, { Options } from 'ky-universal';
 
-const API = ky.create({ prefixUrl: process.env.API_SERVER_URL });
+const API = ky.create({ prefixUrl: process.env.SERVER_URL });
 
 /**
  * GET 요청을 처리하는 API 유틸 함수 getAsync
