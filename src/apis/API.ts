@@ -1,26 +1,21 @@
-import axios from 'axios';
-import type { AxiosRequestConfig, AxiosResponse } from 'axios';
+import ky, { Options } from 'ky-universal';
 
-const API = axios.create({ baseURL: process.env.API_SERVER_URL });
+const API = ky.create({ prefixUrl: process.env.API_SERVER_URL });
 
 /**
  * GET 요청을 처리하는 API 유틸 함수 getAsync
  * @param T 요청 결과로 받을 데이터의 타입
- * @param D 요청 시 서버로 보낼 데이터 타입
  *
  * @param url 요청을 전송할 URL
- * @param config Axios 요청 관련 config (AxiosRequestConfig)
+ * @param config Ky 요청 관련 config (Options)
  * @returns 요청 성공 시 T 객체, 요청 실패 시 에러 throw
  */
-export async function getAsync<T, D>(
+export async function getAsync<T = undefined>(
   url: string,
-  config?: AxiosRequestConfig,
+  config?: Options,
 ): Promise<T> {
-  const response = await API.get<T, AxiosResponse<T, D>, D>(url, {
-    responseType: 'json',
-    ...config,
-  });
-  return response.data;
+  const response = await API.get(url, { ...config });
+  return response.json<T>();
 }
 
 /**
@@ -30,19 +25,16 @@ export async function getAsync<T, D>(
  *
  * @param url 요청을 전송할 URL
  * @param data body 에 넣어 보낼 데이터
- * @param config Axios 요청 관련 config (AxiosRequestConfig)
+ * @param config Ky 요청 관련 config (Options)
  * @returns 요청 성공 시 T 객체, 요청 실패 시 에러 throw
  */
-export async function postAsync<T, D>(
+export async function postAsync<T = undefined>(
   url: string,
-  data: D,
-  config?: AxiosRequestConfig,
+  data: unknown,
+  config?: Options,
 ): Promise<T> {
-  const response = await API.post<T, AxiosResponse<T, D>, D>(url, data, {
-    responseType: 'json',
-    ...config,
-  });
-  return response.data;
+  const response = await API.post(url, { json: data, ...config });
+  return response.json<T>();
 }
 
 /**
@@ -51,18 +43,17 @@ export async function postAsync<T, D>(
  * @param D 요청 시 서버로 보낼 데이터 타입
  *
  * @param url 요청을 전송할 URL
- * @param config Axios 요청 관련 config (AxiosRequestConfig)
+ * @param config Ky 요청 관련 config (Options)
  * @returns 요청 성공 시 T 객체, 요청 실패 시 에러 throw
  */
-export async function deleteAsync<T, D>(
+export async function deleteAsync<T = undefined>(
   url: string,
-  config?: AxiosRequestConfig,
+  config?: Options,
 ): Promise<T> {
-  const response = await API.delete<T, AxiosResponse<T, D>, D>(url, {
-    responseType: 'json',
+  const response = await API.delete(url, {
     ...config,
   });
-  return response.data;
+  return response.json<T>();
 }
 
 /**
@@ -72,17 +63,39 @@ export async function deleteAsync<T, D>(
  *
  * @param url 요청을 전송할 URL
  * @param data body 에 넣어 보낼 데이터
- * @param config Axios 요청 관련 config (AxiosRequestConfig)
+ * @param config Ky 요청 관련 config (Options)
  * @returns 요청 성공 시 T 객체, 요청 실패 시 에러 throw
  */
-export async function patchAsync<T, D>(
+export async function patchAsync<T = undefined>(
   url: string,
-  data: D,
-  config?: AxiosRequestConfig,
+  data: unknown,
+  config?: Options,
 ): Promise<T> {
-  const response = await API.patch<T, AxiosResponse<T, D>, D>(url, data, {
-    responseType: 'json',
+  const response = await API.patch(url, {
+    json: data,
     ...config,
   });
-  return response.data;
+  return response.json<T>();
+}
+
+/**
+ * PUT HTTP 요청을 처리하는 API 유틸 함수 putAsync
+ * @param T 요청 결과로 받을 데이터의 타입
+ * @param D 요청 시 서버로 보낼 데이터 타입
+ *
+ * @param url 요청을 전송할 URL
+ * @param data body 에 넣어 보낼 데이터
+ * @param config Ky 요청 관련 config (Options)
+ * @returns 요청 성공 시 T 객체, 요청 실패 시 에러 throw
+ */
+export async function putAsync<T = undefined>(
+  url: string,
+  data: unknown,
+  config?: Options,
+): Promise<T> {
+  const response = await API.put(url, {
+    json: data,
+    ...config,
+  });
+  return response.json<T>();
 }
