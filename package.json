@@ -11,8 +11,11 @@
     "prettier": "prettier --write src/**/*.{ts,tsx}"
   },
   "dependencies": {
+    "@tanstack/query-core": "4.29.14",
     "@tanstack/react-query": "4.29.14",
     "axios": "1.4.0",
+    "ky": "0.33.3",
+    "ky-universal": "0.11.0",
     "next": "13.4.6",
     "postcss": "8.4.24",
     "react": "18.2.0",
@@ -22,11 +25,12 @@
   },
   "devDependencies": {
     "@svgr/webpack": "8.0.1",
+    "@tanstack/react-query-devtools": "4.29.14",
     "@types/node": "20.3.1",
     "@types/react": "18.2.12",
     "@types/react-dom": "18.2.5",
     "autoprefixer": "10.4.14",
-    "classnames": "^2.3.2",
+    "classnames": "2.3.2",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.6",
     "eslint-config-prettier": "8.8.0",
