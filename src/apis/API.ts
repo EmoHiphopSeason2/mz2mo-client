@@ -21,7 +21,6 @@ export async function getAsync<T = undefined>(
 /**
  * POST HTTP 요청을 처리하는 API 유틸 함수 postAsync
  * @param T 요청 결과로 받을 데이터의 타입
- * @param D 요청 시 서버로 보낼 데이터 타입
  *
  * @param url 요청을 전송할 URL
  * @param data body 에 넣어 보낼 데이터
@@ -40,7 +39,6 @@ export async function postAsync<T = undefined>(
 /**
  * DELETE HTTP 요청을 처리하는 API 유틸 함수 deleteAsync
  * @param T 요청 결과로 받을 데이터의 타입
- * @param D 요청 시 서버로 보낼 데이터 타입
  *
  * @param url 요청을 전송할 URL
  * @param config Ky 요청 관련 config (Options)
@@ -59,7 +57,6 @@ export async function deleteAsync<T = undefined>(
 /**
  * PATCH HTTP 요청을 처리하는 API 유틸 함수 postAsync
  * @param T 요청 결과로 받을 데이터의 타입
- * @param D 요청 시 서버로 보낼 데이터 타입
  *
  * @param url 요청을 전송할 URL
  * @param data body 에 넣어 보낼 데이터
@@ -81,7 +78,6 @@ export async function patchAsync<T = undefined>(
 /**
  * PUT HTTP 요청을 처리하는 API 유틸 함수 putAsync
  * @param T 요청 결과로 받을 데이터의 타입
- * @param D 요청 시 서버로 보낼 데이터 타입
  *
  * @param url 요청을 전송할 URL
  * @param data body 에 넣어 보낼 데이터
