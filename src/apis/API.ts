@@ -41,16 +41,16 @@ export async function postAsync<T = undefined>(
  * @param T 요청 결과로 받을 데이터의 타입
  *
  * @param url 요청을 전송할 URL
+ * @param data body 에 넣어 보낼 데이터
  * @param config Ky 요청 관련 config (Options)
  * @returns 요청 성공 시 T 객체, 요청 실패 시 에러 throw
  */
 export async function deleteAsync<T = undefined>(
   url: string,
+  data: unknown,
   config?: Options,
 ): Promise<T> {
-  const response = await API.delete(url, {
-    ...config,
-  });
+  const response = await API.delete(url, { json: data, ...config });
   return response.json<T>();
 }
 
