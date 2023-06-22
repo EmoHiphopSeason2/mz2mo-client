@@ -7,5 +7,17 @@
   "arrowParens": "always",
   "useTabs": false,
   "bracketSpacing": true,
-  "quoteProps": "as-needed"
+  "quoteProps": "as-needed",
+  "plugins": [
+    "prettier-plugin-tailwindcss",
+    "@trivago/prettier-plugin-sort-imports"
+  ],
+  "importOrder": [
+    "^(next/(.*)$)|^(next$)",
+    "^(react/(.*)$)|^(react$)",
+    "<THIRD_PARTY_MODULES>",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }
