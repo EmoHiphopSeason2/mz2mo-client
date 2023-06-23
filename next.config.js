@@ -1,4 +1,10 @@
 /** @type {import('next').NextConfig} */
+
+const withPWA = require('next-pwa')({
+  customWorkerDir: 'src/worker',
+  dest: 'public',
+});
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -23,6 +29,9 @@ const nextConfig = {
     fileLoaderRule.exclude = /\.svg$/i;
     return config;
   },
+  compiler: {
+    removeConsole: process.env.NODE_ENV !== 'development',
+  },
 };
 
-module.exports = nextConfig;
+module.exports = withPWA(nextConfig);
