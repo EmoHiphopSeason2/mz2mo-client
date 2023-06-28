@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    font-family: var(--font-pretendard), system-ui, Arial;
+    font-family: var(--font-pretendard);
   }
 }
 
