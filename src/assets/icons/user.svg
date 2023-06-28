@@ -1,6 +1,6 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="icons=user">
-<path id="Vector" d="M18.36 17.964C17.9401 16.6548 17.1154 15.5128 16.0048 14.7026C14.8941 13.8924 13.5548 13.4558 12.18 13.4558C10.8052 13.4558 9.4659 13.8924 8.35521 14.7026C7.24453 15.5128 6.41982 16.6548 6 17.964" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_2" d="M12.1798 13.4641C14.5171 13.4641 16.4119 11.5694 16.4119 9.23205C16.4119 6.89475 14.5171 5 12.1798 5C9.84251 5 7.94775 6.89475 7.94775 9.23205C7.94775 11.5694 9.84251 13.4641 12.1798 13.4641Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector" d="M18.36 17.964C17.9401 16.6548 17.1154 15.5128 16.0048 14.7026C14.8941 13.8924 13.5548 13.4558 12.18 13.4558C10.8052 13.4558 9.4659 13.8924 8.35521 14.7026C7.24453 15.5128 6.41982 16.6548 6 17.964" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M12.1798 13.4641C14.5171 13.4641 16.4119 11.5694 16.4119 9.23205C16.4119 6.89475 14.5171 5 12.1798 5C9.84251 5 7.94775 6.89475 7.94775 9.23205C7.94775 11.5694 9.84251 13.4641 12.1798 13.4641Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>
