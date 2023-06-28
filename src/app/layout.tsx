@@ -1,11 +1,9 @@
 import { Metadata, ResolvingMetadata } from 'next';
-import { Inter } from 'next/font/google';
 
+import { pretendard } from '@/app/fonts';
 import { metadata } from '@/constants/siteMetaData';
 
 import './globals.css';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export async function generateMetadata(
   parent?: ResolvingMetadata,
@@ -21,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko">
-      <body className={inter.className}>{children}</body>
+    <html lang="ko" className={`${pretendard.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }
