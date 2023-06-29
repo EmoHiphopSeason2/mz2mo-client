@@ -8,9 +8,9 @@ interface MenuButtonProps
   className?: React.ComponentProps<'button'>['className'];
 }
 
-const MenuButton = ({ onClick, className }: MenuButtonProps) => {
+const MenuButton = ({ onClick, className, ...props }: MenuButtonProps) => {
   return (
-    <button onClick={onClick} className={className}>
+    <button onClick={onClick} className={className} {...props}>
       <Menu className="text-white w-7 h-7" />
     </button>
   );

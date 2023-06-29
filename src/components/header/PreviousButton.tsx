@@ -8,9 +8,13 @@ interface PreviousButtonProps
   className?: React.ComponentProps<'button'>['className'];
 }
 
-const PreviousButton = ({ onClick, className }: PreviousButtonProps) => {
+const PreviousButton = ({
+  onClick,
+  className,
+  ...props
+}: PreviousButtonProps) => {
   return (
-    <button onClick={onClick} className={className}>
+    <button onClick={onClick} className={className} {...props}>
       <ArrowLeft className="text-white w-7 h-7" />
     </button>
   );
