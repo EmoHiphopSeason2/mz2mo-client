@@ -26,7 +26,7 @@ const BasicButton = ({
 }: BasicButtonProps) => {
   return (
     <button className={clsx(className, BasicButtonConfig[size])} {...props}>
-      {hasArrow && <ArrowRight className="mr-1" />}
+      {hasArrow && <ArrowRight className="w-4 h-4 mr-1" />}
       {children}
     </button>
   );

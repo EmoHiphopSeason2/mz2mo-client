@@ -20,7 +20,7 @@ const ArrowButton = ({ direction, className, ...props }: ArrowButtonProps) => {
       )}
       {...props}
     >
-      <ChevronIcon className="w-24 h-24" />
+      <ChevronIcon className="w-6 h-6" />
     </button>
   );
 };
