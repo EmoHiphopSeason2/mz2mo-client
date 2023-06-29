@@ -11,6 +11,7 @@ interface ArrowButtonProps
 }
 
 const ArrowButton = ({ direction, className, ...props }: ArrowButtonProps) => {
+  const ChevronIcon = direction === 'right' ? ChevronRight : ChevronLeft;
   return (
     <button
       className={clsx(
@@ -19,7 +20,7 @@ const ArrowButton = ({ direction, className, ...props }: ArrowButtonProps) => {
       )}
       {...props}
     >
-      {direction === 'right' ? <ChevronRight /> : <ChevronLeft />}
+      <ChevronIcon className="w-24 h-24" />
     </button>
   );
 };
