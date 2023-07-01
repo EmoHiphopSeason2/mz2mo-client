@@ -2,9 +2,8 @@ import { Metadata, ResolvingMetadata } from 'next';
 
 import { pretendard } from '@/app/fonts';
 import { metadata } from '@/constants/siteMetaData';
-
-import JotaiAtomProvider from './JotaiAtomProvider';
-import ReactQueryProvider from './ReactQueryProvider';
+import JotaiAtomProvider from '@/utils/JotaiAtomProvider';
+import ReactQueryProvider from '@/utils/ReactQueryProvider';
 import './globals.css';
 
 export async function generateMetadata(
