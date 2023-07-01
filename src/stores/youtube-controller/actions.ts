@@ -69,7 +69,7 @@ export const controlPlaylistAtom = atom(
         break;
       }
       case 'change': {
-        // TODO : 잘못된 범주의 index를 입력 받았을 경우 에러를 throw 할지, 적절한 값으로 변경시킬지 논의 필요
+        // TODO : 잘못된 범주의 index를 입력 받았을 경우 에러를 throw 할지, 적절한 값으로 변경시킬지 논의 필요        
         if (update.index < 0) update.index = 0;
         if (update.index >= prevSongList.length)
           update.index = prevSongList.length - 1;

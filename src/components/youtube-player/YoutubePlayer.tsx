@@ -15,7 +15,7 @@ const YoutubePlayer = () => {
 
   const setCurrentPlayingIndex = useSetAtom(controlCurrentPlayingAtom);
 
-  const isLoop = loopState !== 'none';
+  const isLoop = loopState !== 'none' && !!playList.length;
   const onEnd = () => {
     if (loopState === 'all')
         setCurrentPlayingIndex({ index: (currentPlayingIndex + 1) % playList.length });
