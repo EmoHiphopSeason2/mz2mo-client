@@ -1,8 +1,31 @@
 import youtubeControllerAtom from '@/stores/youtube-controller/stores';
-import { UpdatePlaylistActionType, UpdateVolumeActionType } from '@/types/atom';
+import {
+  UpdateCurrentPlayingType,
+  UpdatePlayingStateType,
+  UpdatePlaylistActionType,
+  UpdateVolumeActionType,
+} from '@/types/atom/youtubeController';
 import { atom } from 'jotai';
 
-import { UpdatePlayingStateType } from '../../types/atom/youtubeController';
+/**
+ * 현재 재생하려는 playlist index를 제어하는 derivedAtom (controlCurrentPlayingAtom)
+ */
+export const controlCurrentPlayingAtom = atom(
+  (get) => get(youtubeControllerAtom).currentPlayingIndex,
+  (get, set, update: UpdateCurrentPlayingType) => {
+    const prevAtom = get(youtubeControllerAtom);
+    const prevSongList = prevAtom.playList;
+
+    if (update.index < 0) update.index = 0;
+    if (update.index >= prevSongList.length)
+      update.index = prevSongList.length - 1;
+
+    set(youtubeControllerAtom, {
+      ...prevAtom,
+      currentPlayingIndex: update.index,
+    });
+  },
+);
 
 /**
  * 현재 플레이에어 등록된 음악 VID 목록을 업데이트 하는 derivedAtom (controlPlaylistAtom)
@@ -65,7 +88,7 @@ export const controlPlaylistAtom = atom(
 );
 
 /**
- * 현재 플레이어의 Volumn 수준을 조정하는 derivedAtom (controlVolumnAtom)
+ * 현재 플레이어의 Volume 수준을 조정하는 derivedAtom (controlVolumeAtom)
  * 0부터 1 사이의 소수를 넣어 수준을 조정할 수 있으며, 범주 밖으로 벗어날 경우 0 또는 1로 조정
  */
 export const controlVolumeAtom = atom(
