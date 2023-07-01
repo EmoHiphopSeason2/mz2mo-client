@@ -21,4 +21,4 @@ export type UpdateLoopStateType = {
   action: YoutubeControllerType['loopState'];
 };
 
-export type UpdateCurrentPlayingType = { index: number }
+export type UpdateCurrentPlayingType = { index: number };
