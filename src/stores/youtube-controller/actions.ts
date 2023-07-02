@@ -19,6 +19,9 @@ export const playerInstanceAtom = atom(
   },
 );
 
+/**
+ * 현재 플레이어의 재생 시간을 제어하는 derivedAtom (controlCurrentDurationAtom)
+ */
 export const controlCurrentDurationAtom = atom(
   (get) => get(youtubeControllerAtom).currentDuration,
   (get, set, updatedDuration: number) => {
