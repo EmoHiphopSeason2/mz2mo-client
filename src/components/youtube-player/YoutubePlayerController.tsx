@@ -13,6 +13,7 @@ import {
   controlVolumeAtom,
   playerInstanceAtom,
 } from '@/stores/youtube-controller';
+import FormatUtil from '@/utils/format';
 
 import YoutubePlayer from './YoutubePlayer';
 
@@ -77,7 +78,7 @@ const YoutubePlayerController = () => {
   return (
     <div className="flex flex-col">
       <YoutubePlayer />
-      <div>
+      <div className="flex justify-content-">
         <button onClick={() => handlePlay('start')}>click to play</button>
         <button onClick={() => handlePlay('stop')}>click to stop</button>
       </div>
@@ -98,7 +99,11 @@ const YoutubePlayerController = () => {
         <button onClick={addNewSongVidInput}>Add Song Vid</button>
       </div>
       <div className="flex flex-col">
-        <h5>Change Seek Range</h5>
+        <h5>{`Change Seek Range (${FormatUtil.formatTimeToMMSS(
+          currentDuration,
+        )} : ${FormatUtil.formatTimeToMMSS(
+          playerInstance?.getDuration() || 0,
+        )})`}</h5>
         <input
           type="range"
           max={playerInstance?.getDuration() || 0}
