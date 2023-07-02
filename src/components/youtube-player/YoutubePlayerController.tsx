@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import ReactPlayer from 'react-player/youtube';
@@ -27,7 +27,7 @@ const YoutubePlayerController = () => {
   const [currentDuration, setCurrentDuration] = useAtom(controlCurrentDurationAtom);
   const [playList, setPlayList] = useAtom(controlPlaylistAtom);
   const [volume, setVolume] = useAtom(controlVolumeAtom);
-  const [currentPlayingIndex, setCurrentPlayingIndex] = useAtom(
+  const [currentPlayIndex, setCurrentPlayIndex] = useAtom(
     controlCurrentPlayingAtom,
   )
 
@@ -51,10 +51,11 @@ const YoutubePlayerController = () => {
   };
 
   const handleDurationRange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentDuration(Number(e.target.value));
+    const movedDurationValue = Number(e.target.value)
     // NOTE : seekTo 메서드로 직접 재생 위치를 옮겨야 원활한 동작이 가능
-    if (playerInstance)
-      playerInstance.seekTo(Number(e.target.value), true);
+    if (playerInstance && Number.isNaN(movedDurationValue))
+      playerInstance.seekTo(movedDurationValue, true);
+      setCurrentDuration(movedDurationValue);
   };
 
   const addNewSongVidInput = () => {
@@ -67,8 +68,8 @@ const YoutubePlayerController = () => {
     }
   };
 
-  const applyPlayingIndex = () => {
-    setCurrentPlayingIndex(playIndex);
+  const applyPlayIndex = () => {
+    setCurrentPlayIndex(playIndex);
     setCurrentDuration(0);
   };
 
@@ -117,14 +118,14 @@ const YoutubePlayerController = () => {
             <h5>Current Playing Vid</h5>
 
             <p>
-              {playList[currentPlayingIndex]}
-              {`(${currentPlayingIndex} 번)`}
+              {playList[currentPlayIndex]}
+              {`(${currentPlayIndex} 번)`}
             </p>
             {playList.length > 1 && (
               <>
                 <h5>Change Play Index</h5>
                 <input value={playIndex} onChange={handlePlayIndexInput} />
-                <button onClick={applyPlayingIndex}>Change Play Song</button>
+                <button onClick={applyPlayIndex}>Change Play Song</button>
               </>
             )}
           </div>

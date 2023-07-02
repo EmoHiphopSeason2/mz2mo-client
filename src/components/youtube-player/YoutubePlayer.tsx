@@ -48,6 +48,7 @@ const YoutubePlayer = () => {
 
   return (
     <ReactPlayer
+      style={{display: 'none'}}
       loop={isLoop}
       ref={playerRef}
       url={currentPlayingUrl}

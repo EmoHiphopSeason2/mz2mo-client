@@ -18,6 +18,7 @@ export const playerInstanceAtom = atom(
   },
 );
 
+
 export const controlCurrentDurationAtom = atom(
   (get) => get(youtubeControllerAtom).currentDuration,
   (get, set, updatedDuration: number) => {
