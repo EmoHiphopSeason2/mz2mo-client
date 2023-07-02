@@ -3,7 +3,9 @@ import { atom } from 'jotai';
 import { YoutubeControllerType } from '@/types/atom';
 
 const youtubeControllerAtom = atom<YoutubeControllerType>({
-  playList: ['5g-glh0eTYY', '09qQnnJsWus', 'WHvkcNaDcBk'],
+  playerInstance: null,
+  playList: [],
+  currentDuration: 0,
   currentPlayingIndex: 0,
   loopState: 'all',
   isPlaying: false,

@@ -1,41 +1,44 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useAtom, useSetAtom } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import ReactPlayer from 'react-player/youtube';
 
 import {
+  controlCurrentDurationAtom,
   controlCurrentPlayingAtom,
   controlPlayingStateAtom,
   controlPlaylistAtom,
   controlVolumeAtom,
+  playerInstanceAtom,
 } from '@/stores/youtube-controller';
 
 import YoutubePlayer from './YoutubePlayer';
 
-const YoutubePlayerWrapper = () => {
+// FIXME : 테스트용으로 만들어둔 YoutubePlayerWrapper, 추후 관련 기능 고도화 필요
+const YoutubePlayerController = () => {
   const [songVid, setSongVid] = useState('');
   const [playIndex, setPlayIndex] = useState(0);
-  const [currentDuration, setCurrentDuration] = useState(0);
 
   const setPlayingState = useSetAtom(controlPlayingStateAtom);
+  const playerInstance = useAtomValue(playerInstanceAtom);
+
+  const [currentDuration, setCurrentDuration] = useAtom(controlCurrentDurationAtom);
   const [playList, setPlayList] = useAtom(controlPlaylistAtom);
+  const [volume, setVolume] = useAtom(controlVolumeAtom);
   const [currentPlayingIndex, setCurrentPlayingIndex] = useAtom(
     controlCurrentPlayingAtom,
-  );
-  const [volume, setVolume] = useAtom(controlVolumeAtom);
+  )
 
-  const clickPlay = () => {
-    setPlayingState({ action: 'start' });
-  };
+  const isPlayerEnabled = playerInstance !== null;
 
-  const stopPlay = () => {
-    setPlayingState({ action: 'stop' });
-  };
+  const handlePlay = (action: 'start' | 'stop') => {
+    setPlayingState({ action });
+  }
 
   const handleVolumeRange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVolume({ volume: Number(e.target.value) });
+    setVolume(Number(e.target.value));
   };
 
   const handleVidInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,6 +52,9 @@ const YoutubePlayerWrapper = () => {
 
   const handleDurationRange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentDuration(Number(e.target.value));
+    // NOTE : seekTo 메서드로 직접 재생 위치를 옮겨야 원활한 동작이 가능
+    if (playerInstance)
+      playerInstance.seekTo(Number(e.target.value), true);
   };
 
   const addNewSongVidInput = () => {
@@ -62,8 +68,8 @@ const YoutubePlayerWrapper = () => {
   };
 
   const applyPlayingIndex = () => {
-    if (playIndex < 0 || playIndex >= playList.length) return;
-    setCurrentPlayingIndex({ index: playIndex });
+    setCurrentPlayingIndex(playIndex);
+    setCurrentDuration(0);
   };
 
   return (
@@ -71,8 +77,8 @@ const YoutubePlayerWrapper = () => {
       <YoutubePlayer />
       <div className="flex flex-col">
         <div>
-          <button onClick={clickPlay}>click to play</button>
-          <button onClick={stopPlay}>click to stop</button>
+          <button onClick={() => handlePlay('start')}>click to play</button>
+          <button onClick={() => handlePlay('stop')}>click to stop</button>
         </div>
         <div className="flex flex-col">
           <h5>Change Volume</h5>
@@ -83,6 +89,7 @@ const YoutubePlayerWrapper = () => {
             step={0.01}
             value={volume}
             onChange={handleVolumeRange}
+            disabled={!isPlayerEnabled}
           />
         </div>
         <div className="flex flex-col">
@@ -93,11 +100,12 @@ const YoutubePlayerWrapper = () => {
           <h5>Change Seek Range</h5>
           <input
             type="range"
-            max={1}
+            max={playerInstance?.getDuration() || 0}
             min={0}
-            step={0.01}
+            step={1}
             value={currentDuration}
             onChange={handleDurationRange}
+            disabled={!isPlayerEnabled}
           />
         </div>
         {playList.length > 0 && (
@@ -126,4 +134,4 @@ const YoutubePlayerWrapper = () => {
   );
 };
 
-export default YoutubePlayerWrapper;
+export default YoutubePlayerController;

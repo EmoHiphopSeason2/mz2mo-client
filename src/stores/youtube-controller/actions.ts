@@ -2,28 +2,57 @@ import { atom } from 'jotai';
 
 import youtubeControllerAtom from '@/stores/youtube-controller/stores';
 import {
-  UpdateCurrentPlayingType,
+  UpdatePlayerInstanceType,
   UpdatePlayingStateType,
   UpdatePlaylistActionType,
-  UpdateVolumeActionType,
 } from '@/types/atom/youtubeController';
+
+/**
+ * 새로운 Youtube Iframe 전용 인스턴스를 인계 받는 derivedAtom (playerInstanceAtom)
+ */
+export const playerInstanceAtom = atom(
+  (get) => get(youtubeControllerAtom).playerInstance,
+  (get, set, update: UpdatePlayerInstanceType) => {
+    const prevAtom = get(youtubeControllerAtom);
+    set(youtubeControllerAtom, { ...prevAtom, playerInstance: update.ref });
+  },
+);
+
+export const controlCurrentDurationAtom = atom(
+  (get) => get(youtubeControllerAtom).currentDuration,
+  (get, set, updatedDuration: number) => {
+    const prevAtom = get(youtubeControllerAtom);
+
+    if (!prevAtom.playerInstance) return prevAtom;
+    const maxDuration = prevAtom.playerInstance.getDuration();
+
+    if (updatedDuration < 0) updatedDuration = 0;
+    if (updatedDuration >= maxDuration) updatedDuration = maxDuration;
+
+    set(youtubeControllerAtom, {
+      ...prevAtom,
+      currentDuration: updatedDuration,
+    });
+  },
+);
 
 /**
  * 현재 재생하려는 playlist index를 제어하는 derivedAtom (controlCurrentPlayingAtom)
  */
 export const controlCurrentPlayingAtom = atom(
   (get) => get(youtubeControllerAtom).currentPlayingIndex,
-  (get, set, update: UpdateCurrentPlayingType) => {
+  (get, set, updatedIndex: number) => {
     const prevAtom = get(youtubeControllerAtom);
     const prevSongList = prevAtom.playList;
 
-    if (update.index < 0) update.index = 0;
-    if (update.index >= prevSongList.length)
-      update.index = prevSongList.length - 1;
+    if (updatedIndex < 0) updatedIndex = 0;
+    if (updatedIndex >= prevSongList.length)
+      updatedIndex = prevSongList.length - 1;
 
     set(youtubeControllerAtom, {
       ...prevAtom,
-      currentPlayingIndex: update.index,
+      currentPlayingIndex: updatedIndex,
+      currentDuration: 0, // NOTE : 다음 곡으로 이동했으므로, 재생 시간도 0초로 초기화
     });
   },
 );
@@ -94,12 +123,12 @@ export const controlPlaylistAtom = atom(
  */
 export const controlVolumeAtom = atom(
   (get) => get(youtubeControllerAtom).volume,
-  (get, set, update: UpdateVolumeActionType) => {
+  (get, set, updatedVolume: number) => {
     const prevAtom = get(youtubeControllerAtom);
-    if (update.volume < 0) update.volume = 0;
-    if (update.volume > 1) update.volume = 1;
+    if (updatedVolume < 0) updatedVolume = 0;
+    if (updatedVolume > 1) updatedVolume = 1;
 
-    set(youtubeControllerAtom, { ...prevAtom, volume: update.volume });
+    set(youtubeControllerAtom, { ...prevAtom, volume: updatedVolume });
   },
 );
 
