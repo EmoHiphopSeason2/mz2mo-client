@@ -107,6 +107,7 @@ const YoutubePlayerWrapper = () => {
               <p key={songVid}>{songVid}</p>
             ))}
             <h5>Current Playing Vid</h5>
+
             <p>
               {playList[currentPlayingIndex]}
               {`(${currentPlayingIndex} 번)`}
