@@ -1,8 +1,9 @@
 import React from 'react';
 
+import clsx from 'clsx';
+
 import ChevronLeft from '@/assets/icons/chevronLeft.svg';
 import ChevronRight from '@/assets/icons/chevronRight.svg';
-import clsx from 'clsx';
 
 interface ArrowButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {

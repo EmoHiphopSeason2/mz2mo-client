@@ -1,3 +1,5 @@
+import { atom } from 'jotai';
+
 import youtubeControllerAtom from '@/stores/youtube-controller/stores';
 import {
   UpdateCurrentPlayingType,
@@ -5,7 +7,6 @@ import {
   UpdatePlaylistActionType,
   UpdateVolumeActionType,
 } from '@/types/atom/youtubeController';
-import { atom } from 'jotai';
 
 /**
  * 현재 재생하려는 playlist index를 제어하는 derivedAtom (controlCurrentPlayingAtom)
