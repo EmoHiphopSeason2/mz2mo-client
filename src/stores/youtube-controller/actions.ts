@@ -9,6 +9,7 @@ import {
 
 /**
  * 새로운 Youtube Iframe 전용 인스턴스를 인계 받는 derivedAtom (playerInstanceAtom)
+ * YT.Player 클래스 인스턴스를 저장하며, 추후 외부에서 플레이어 관련 로직을 사용할 때 필요.
  */
 export const playerInstanceAtom = atom(
   (get) => get(youtubeControllerAtom).playerInstance,
@@ -17,7 +18,6 @@ export const playerInstanceAtom = atom(
     set(youtubeControllerAtom, { ...prevAtom, playerInstance: update.ref });
   },
 );
-
 
 export const controlCurrentDurationAtom = atom(
   (get) => get(youtubeControllerAtom).currentDuration,
@@ -44,16 +44,16 @@ export const controlCurrentPlayingAtom = atom(
   (get) => get(youtubeControllerAtom).currentPlayingIndex,
   (get, set, updatedIndex: number) => {
     const prevAtom = get(youtubeControllerAtom);
-    const prevSongList = prevAtom.playList;
+    const prevSongAmount = prevAtom.playList.length;
 
     if (updatedIndex < 0) updatedIndex = 0;
-    if (updatedIndex >= prevSongList.length)
-      updatedIndex = prevSongList.length - 1;
+    if (updatedIndex >= prevSongAmount) updatedIndex = prevSongAmount - 1;
 
+    // NOTE : 다음 곡으로 이동했으므로, 재생 시간 (currentDuration) 도 0초로 초기화
     set(youtubeControllerAtom, {
       ...prevAtom,
       currentPlayingIndex: updatedIndex,
-      currentDuration: 0, // NOTE : 다음 곡으로 이동했으므로, 재생 시간도 0초로 초기화
+      currentDuration: 0,
     });
   },
 );
@@ -129,7 +129,10 @@ export const controlVolumeAtom = atom(
     if (updatedVolume < 0) updatedVolume = 0;
     if (updatedVolume > 1) updatedVolume = 1;
 
-    set(youtubeControllerAtom, { ...prevAtom, volume: updatedVolume });
+    set(youtubeControllerAtom, {
+      ...prevAtom,
+      volume: updatedVolume,
+    });
   },
 );
 

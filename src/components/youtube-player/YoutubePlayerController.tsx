@@ -24,18 +24,20 @@ const YoutubePlayerController = () => {
   const setPlayingState = useSetAtom(controlPlayingStateAtom);
   const playerInstance = useAtomValue(playerInstanceAtom);
 
-  const [currentDuration, setCurrentDuration] = useAtom(controlCurrentDurationAtom);
+  const [currentDuration, setCurrentDuration] = useAtom(
+    controlCurrentDurationAtom,
+  );
   const [playList, setPlayList] = useAtom(controlPlaylistAtom);
   const [volume, setVolume] = useAtom(controlVolumeAtom);
   const [currentPlayIndex, setCurrentPlayIndex] = useAtom(
     controlCurrentPlayingAtom,
-  )
+  );
 
   const isPlayerEnabled = playerInstance !== null;
 
   const handlePlay = (action: 'start' | 'stop') => {
     setPlayingState({ action });
-  }
+  };
 
   const handleVolumeRange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setVolume(Number(e.target.value));
@@ -51,11 +53,11 @@ const YoutubePlayerController = () => {
   };
 
   const handleDurationRange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const movedDurationValue = Number(e.target.value)
+    const movedDurationValue = Number(e.target.value);
     // NOTE : seekTo 메서드로 직접 재생 위치를 옮겨야 원활한 동작이 가능
     if (playerInstance && !Number.isNaN(movedDurationValue))
       playerInstance.seekTo(movedDurationValue, true);
-      setCurrentDuration(movedDurationValue);
+    setCurrentDuration(movedDurationValue);
   };
 
   const addNewSongVidInput = () => {
@@ -70,68 +72,65 @@ const YoutubePlayerController = () => {
 
   const applyPlayIndex = () => {
     setCurrentPlayIndex(playIndex);
-    setCurrentDuration(0);
   };
 
   return (
-    <>
+    <div className="flex flex-col">
       <YoutubePlayer />
-      <div className="flex flex-col">
-        <div>
-          <button onClick={() => handlePlay('start')}>click to play</button>
-          <button onClick={() => handlePlay('stop')}>click to stop</button>
-        </div>
-        <div className="flex flex-col">
-          <h5>Change Volume</h5>
-          <input
-            type="range"
-            max={1}
-            min={0}
-            step={0.01}
-            value={volume}
-            onChange={handleVolumeRange}
-            disabled={!isPlayerEnabled}
-          />
-        </div>
-        <div className="flex flex-col">
-          <input value={songVid} onChange={handleVidInput} />
-          <button onClick={addNewSongVidInput}>Add Song Vid</button>
-        </div>
-        <div className="flex flex-col">
-          <h5>Change Seek Range</h5>
-          <input
-            type="range"
-            max={playerInstance?.getDuration() || 0}
-            min={0}
-            step={1}
-            value={currentDuration}
-            onChange={handleDurationRange}
-            disabled={!isPlayerEnabled}
-          />
-        </div>
-        {playList.length > 0 && (
-          <div className="flex flex-col">
-            <h5>Current Playlist</h5>
-            {playList.map((songVid) => (
-              <p key={songVid}>{songVid}</p>
-            ))}
-            <h5>Current Playing Vid</h5>
-
-            <p>
-              {playList[currentPlayIndex]}
-              {`(${currentPlayIndex} 번)`}
-            </p>
-            {playList.length > 1 && (
-              <>
-                <h5>Change Play Index</h5>
-                <input value={playIndex} onChange={handlePlayIndexInput} />
-                <button onClick={applyPlayIndex}>Change Play Song</button>
-              </>
-            )}
-          </div>
-        )}
+      <div>
+        <button onClick={() => handlePlay('start')}>click to play</button>
+        <button onClick={() => handlePlay('stop')}>click to stop</button>
       </div>
-    </>
+      <div className="flex flex-col">
+        <h5>Change Volume</h5>
+        <input
+          type="range"
+          max={1}
+          min={0}
+          step={0.01}
+          value={volume}
+          onChange={handleVolumeRange}
+          disabled={!isPlayerEnabled}
+        />
+      </div>
+      <div className="flex flex-col">
+        <input value={songVid} onChange={handleVidInput} />
+        <button onClick={addNewSongVidInput}>Add Song Vid</button>
+      </div>
+      <div className="flex flex-col">
+        <h5>Change Seek Range</h5>
+        <input
+          type="range"
+          max={playerInstance?.getDuration() || 0}
+          min={0}
+          step={1}
+          value={currentDuration}
+          onChange={handleDurationRange}
+          disabled={!isPlayerEnabled}
+        />
+      </div>
+      {playList.length > 0 && (
+        <div className="flex flex-col">
+          <h5>Current Playlist</h5>
+          {playList.map((songVid) => (
+            <p key={songVid}>{songVid}</p>
+          ))}
+          <h5>Current Playing Vid</h5>
+
+          <p>
+            {playList[currentPlayIndex]}
+            {`(${currentPlayIndex} 번)`}
+          </p>
+          {playList.length > 1 && (
+            <>
+              <h5>Change Play Index</h5>
+              <input value={playIndex} onChange={handlePlayIndexInput} />
+              <button onClick={applyPlayIndex}>Change Play Song</button>
+            </>
+          )}
+        </div>
+      )}
+    </div>
   );
 };
 
