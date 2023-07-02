@@ -16,7 +16,7 @@ import {
 
 import YoutubePlayer from './YoutubePlayer';
 
-// FIXME : 테스트용으로 만들어둔 YoutubePlayerWrapper, 추후 관련 기능 고도화 필요
+// FIXME : 테스트용으로 만들어둔 YoutubePlayerWrapper, 추후 관련 기능 및 UI 고도화 필요
 const YoutubePlayerController = () => {
   const [songVid, setSongVid] = useState('');
   const [playIndex, setPlayIndex] = useState(0);
@@ -53,7 +53,7 @@ const YoutubePlayerController = () => {
   const handleDurationRange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const movedDurationValue = Number(e.target.value)
     // NOTE : seekTo 메서드로 직접 재생 위치를 옮겨야 원활한 동작이 가능
-    if (playerInstance && Number.isNaN(movedDurationValue))
+    if (playerInstance && !Number.isNaN(movedDurationValue))
       playerInstance.seekTo(movedDurationValue, true);
       setCurrentDuration(movedDurationValue);
   };
