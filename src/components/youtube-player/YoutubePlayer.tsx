@@ -36,7 +36,7 @@ const YoutubePlayer = () => {
   const onProgress = () => {
     if (!playerInstance) return;
 
-    const currentTime = playerInstance.getCurrentTime();
+    const currentTime: number = playerInstance.getCurrentTime().toFixed(2);
     setCurrentDuration(currentTime)
   }
 
@@ -59,6 +59,7 @@ const YoutubePlayer = () => {
       onEnded={onEnded}
       onReady={onReady}
       onProgress={onProgress}
+      progressInterval={100}
     />
   );
 };
