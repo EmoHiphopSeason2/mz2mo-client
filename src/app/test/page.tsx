@@ -1,18 +1,11 @@
-'use client';
-
-import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
-
-const YoutubePlayerController = dynamic(
-  () => import('@/components/youtube-player'),
-  {
-    ssr: false,
-  },
-);
+import Link from 'next/link'
 
 export default function TestPage() {
-  const [isRendered, setIsRendered] = useState(false);
-  useEffect(() => setIsRendered(true), []);
-
-  return isRendered ? <YoutubePlayerController /> : null;
+  return (
+    <div>
+      <Link href='/'>
+        <p>테스트</p>
+      </Link>
+    </div>
+  );
 }

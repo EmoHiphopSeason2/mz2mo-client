@@ -14,14 +14,14 @@ const YoutubePlayer = () => {
   const [isPlayerReady, setIsPlayerReady] = useState(false);
 
   const setCurrentPlayingIndex = useSetAtom(controlCurrentPlayingAtom);
-  const setCurrentDuration = useSetAtom(controlCurrentDurationAtom);
 
+  const [currentDuration, setCurrentDuration] = useAtom(controlCurrentDurationAtom);
   const [playerInstance, applyPlayerInstance] = useAtom(playerInstanceAtom);
   const { isPlaying, loopState, volume, playList, currentPlayingIndex } =
     useAtomValue(youtubeControllerAtom);
 
   const currentPlayingUrl = `https://www.youtube.com/watch?v=${playList[currentPlayingIndex]}`;
-  const isLoop = loopState === 'once' && !!playList.length;
+  const isLoop = loopState === CONTROL_OPTION.LOOP.ONCE && !!playList.length;
 
   const onEnded = () => {
     if (loopState === CONTROL_OPTION.LOOP.ALL)
@@ -43,6 +43,7 @@ const YoutubePlayer = () => {
   useEffect(() => {
     if (!playerInstance || !isPlayerReady) return;
 
+    playerInstance.seekTo(currentDuration, true);
     isPlaying ? playerInstance.playVideo() : playerInstance.pauseVideo();
   }, [playerInstance, isPlayerReady, isPlaying]);
 
