@@ -36,7 +36,7 @@ const YoutubePlayer = () => {
   const onProgress = () => {
     if (!playerInstance) return;
 
-    const currentTime = Math.floor(playerInstance.getCurrentTime());
+    const currentTime = playerInstance.getCurrentTime();
     setCurrentDuration(currentTime)
   }
 
