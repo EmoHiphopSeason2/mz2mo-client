@@ -1,7 +1,8 @@
 import React from 'react';
 
-import ArrowRight from '@/assets/icons/arrowRight.svg';
 import clsx from 'clsx';
+
+import ArrowRight from '@/assets/icons/arrowRight.svg';
 
 interface BasicButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
