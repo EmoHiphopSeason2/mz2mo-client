@@ -3,23 +3,23 @@ import type { PropsWithChildren, ReactNode } from 'react';
 
 import { createPortal } from 'react-dom';
 
-const PortalContext = createContext<HTMLDivElement | undefined>(undefined);
-
 interface PortalProviderProps {
   children: ReactNode;
   portalName: string | undefined;
 }
 
+const PortalContext = createContext<HTMLDivElement | null>(null);
+
 const PortalProvider = ({
   children,
   portalName = 'app-portal',
 }: PortalProviderProps) => {
-  const portalRef = useRef<HTMLDivElement>();
+  const portalRef = useRef<HTMLDivElement | null>(null);
   <PortalContext.Provider value={portalRef.current}>
     <div
       id={portalName}
       ref={(element) => {
-        if (element) portalRef.current = element;
+        if (element && !portalRef.current) portalRef.current = element; // NOTE : PortalRef가 미설정되었으며 DOM 요소가 잡힐 경우 등록
       }}
     >
       {children}
@@ -32,4 +32,9 @@ const PortalWrapper = ({ children }: PropsWithChildren) => {
   return portalRef ? createPortal(children, portalRef) : null;
 };
 
-export { PortalProvider, PortalWrapper };
+const AppPortal = {
+    Provider: PortalProvider,
+    Wrapper: PortalWrapper,
+}
+
+export default AppPortal;
