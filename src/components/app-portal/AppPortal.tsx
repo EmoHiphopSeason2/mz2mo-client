@@ -15,16 +15,19 @@ const PortalProvider = ({
   portalName = 'app-portal',
 }: PortalProviderProps) => {
   const portalRef = useRef<HTMLDivElement | null>(null);
-  <PortalContext.Provider value={portalRef.current}>
-    <div
-      id={portalName}
-      ref={(element) => {
-        if (element && !portalRef.current) portalRef.current = element; // NOTE : PortalRef가 미설정되었으며 DOM 요소가 잡힐 경우 등록
-      }}
-    >
-      {children}
-    </div>
-  </PortalContext.Provider>;
+
+  return (
+    <PortalContext.Provider value={portalRef.current}>
+      <div
+        id={portalName}
+        ref={(element) => {
+          if (element && !portalRef.current) portalRef.current = element; // NOTE : PortalRef가 미설정되었으며 DOM 요소가 잡힐 경우 등록
+        }}
+      >
+        {children}
+      </div>
+    </PortalContext.Provider>
+  );
 };
 
 const PortalWrapper = ({ children }: PropsWithChildren) => {
@@ -33,8 +36,8 @@ const PortalWrapper = ({ children }: PropsWithChildren) => {
 };
 
 const AppPortal = {
-    Provider: PortalProvider,
-    Wrapper: PortalWrapper,
-}
+  Provider: PortalProvider,
+  Wrapper: PortalWrapper,
+};
 
 export default AppPortal;
