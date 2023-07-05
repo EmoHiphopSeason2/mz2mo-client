@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { createContext, useContext, useState } from 'react';
 import type { PropsWithChildren, ReactNode } from 'react';
@@ -10,7 +10,9 @@ interface PortalProviderProps {
   portalName?: string | undefined;
 }
 
-const PortalContext = createContext<HTMLDivElement | null>(null);
+const PortalContext = createContext<Map<string, HTMLDivElement | null>>(
+  new Map(),
+);
 
 const PortalProvider = ({
   children,
@@ -20,8 +22,13 @@ const PortalProvider = ({
     null,
   );
 
+  const portalList = useContext(PortalContext);
+  if (portalContainer) {
+    portalList.set(portalName, portalContainer);
+  }
+
   return (
-    <PortalContext.Provider value={portalContainer}>
+    <PortalContext.Provider value={portalList}>
       <div
         id={portalName}
         ref={(element) => {
@@ -33,8 +40,13 @@ const PortalProvider = ({
   );
 };
 
-const PortalWrapper = ({ children }: PropsWithChildren) => {
-  const portalContainer = useContext(PortalContext);
+const PortalWrapper = ({
+  children,
+  portalName = 'app-portal',
+}: PortalProviderProps) => {
+  const portalList = useContext(PortalContext);
+  console.log(portalList);
+  const portalContainer = portalList.get(portalName);
   return portalContainer ? createPortal(children, portalContainer) : null;
 };
 
