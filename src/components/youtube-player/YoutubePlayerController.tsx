@@ -77,7 +77,7 @@ const YoutubePlayerController = () => {
   };
 
   return (
-    <AppPortal.Wrapper>
+    <AppPortal.Wrapper portalName="player-portal">
       <div className="flex flex-col z-10 fixed left-0 top-0 block container ">
         <YoutubePlayer />
         <div className="flex justify-content-">

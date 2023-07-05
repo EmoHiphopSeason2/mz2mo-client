@@ -20,8 +20,15 @@ export default function Template({ children }: { children: React.ReactNode }) {
   return (
     <>
       <AppPortal.Provider portalName="player-portal">
-          {isRendered ? <YoutubePlayerController /> : null}
+        {isRendered ? <YoutubePlayerController /> : null}
+        <AppPortal.Provider portalName="modal-portal">
+          <AppPortal.Wrapper portalName="modal-portal">
+            <div className="z-10">
+              <p>test another portal</p>
+            </div>
+          </AppPortal.Wrapper>
           {children}
+        </AppPortal.Provider>
       </AppPortal.Provider>
     </>
   );
