@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import ReactPlayer from 'react-player/youtube';
 
+import AppPortal from '@/components/app-portal';
 import {
   controlCurrentDurationAtom,
   controlCurrentPlayingAtom,
@@ -76,66 +77,68 @@ const YoutubePlayerController = () => {
   };
 
   return (
-    <div className="flex flex-col">
-      <YoutubePlayer />
-      <div className="flex justify-content-">
-        <button onClick={() => handlePlay('start')}>click to play</button>
-        <button onClick={() => handlePlay('stop')}>click to stop</button>
-      </div>
-      <div className="flex flex-col">
-        <h5>Change Volume</h5>
-        <input
-          type="range"
-          max={1}
-          min={0}
-          step={0.01}
-          value={volume}
-          onChange={handleVolumeRange}
-          disabled={!isPlayerEnabled}
-        />
-      </div>
-      <div className="flex flex-col">
-        <input value={songVid} onChange={handleVidInput} />
-        <button onClick={addNewSongVidInput}>Add Song Vid</button>
-      </div>
-      <div className="flex flex-col">
-        <h5>{`Change Seek Range (${FormatUtil.formatTimeToMMSS(
-          currentDuration,
-        )} : ${FormatUtil.formatTimeToMMSS(
-          playerInstance?.getDuration() || 0,
-        )})`}</h5>
-        <input
-          type="range"
-          max={playerInstance?.getDuration() || 0}
-          min={0}
-          step={1}
-          value={currentDuration}
-          onChange={handleDurationRange}
-          disabled={!isPlayerEnabled}
-        />
-      </div>
-      {playList.length > 0 && (
-        <div className="flex flex-col">
-          <h5>Current Playlist</h5>
-          {playList.map((songVid) => (
-            <p key={songVid}>{songVid}</p>
-          ))}
-          <h5>Current Playing Vid</h5>
-
-          <p>
-            {playList[currentPlayIndex]}
-            {`(${currentPlayIndex} 번)`}
-          </p>
-          {playList.length > 1 && (
-            <>
-              <h5>Change Play Index</h5>
-              <input value={playIndex} onChange={handlePlayIndexInput} />
-              <button onClick={applyPlayIndex}>Change Play Song</button>
-            </>
-          )}
+    <AppPortal.Wrapper portalName="player-portal">
+      <div className="flex flex-col z-10 fixed left-0 top-0 block container ">
+        <YoutubePlayer />
+        <div className="flex justify-content-">
+          <button onClick={() => handlePlay('start')}>click to play</button>
+          <button onClick={() => handlePlay('stop')}>click to stop</button>
         </div>
-      )}
-    </div>
+        <div className="flex flex-col">
+          <h5>Change Volume</h5>
+          <input
+            type="range"
+            max={1}
+            min={0}
+            step={0.01}
+            value={volume}
+            onChange={handleVolumeRange}
+            disabled={!isPlayerEnabled}
+          />
+        </div>
+        <div className="flex flex-col">
+          <input value={songVid} onChange={handleVidInput} />
+          <button onClick={addNewSongVidInput}>Add Song Vid</button>
+        </div>
+        <div className="flex flex-col">
+          <h5>{`Change Seek Range (${FormatUtil.formatTimeToMMSS(
+            currentDuration,
+          )} : ${FormatUtil.formatTimeToMMSS(
+            playerInstance?.getDuration() || 0,
+          )})`}</h5>
+          <input
+            type="range"
+            max={playerInstance?.getDuration() || 0}
+            min={0}
+            step={1}
+            value={currentDuration}
+            onChange={handleDurationRange}
+            disabled={!isPlayerEnabled}
+          />
+        </div>
+        {playList.length > 0 && (
+          <div className="flex flex-col">
+            <h5>Current Playlist</h5>
+            {playList.map((songVid) => (
+              <p key={songVid}>{songVid}</p>
+            ))}
+            <h5>Current Playing Vid</h5>
+
+            <p>
+              {playList[currentPlayIndex]}
+              {`(${currentPlayIndex} 번)`}
+            </p>
+            {playList.length > 1 && (
+              <>
+                <h5>Change Play Index</h5>
+                <input value={playIndex} onChange={handlePlayIndexInput} />
+                <button onClick={applyPlayIndex}>Change Play Song</button>
+              </>
+            )}
+          </div>
+        )}
+      </div>
+    </AppPortal.Wrapper>
   );
 };
 
