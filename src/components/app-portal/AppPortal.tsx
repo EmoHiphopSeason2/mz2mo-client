@@ -11,7 +11,7 @@ interface PortalProviderProps {
 }
 
 const PortalContext = createContext<Map<string, HTMLDivElement | null>>(
-  new Map(),
+  new Map([]),
 );
 
 const PortalProvider = ({
@@ -45,7 +45,6 @@ const PortalWrapper = ({
   portalName = 'app-portal',
 }: PortalProviderProps) => {
   const portalList = useContext(PortalContext);
-  console.log(portalList);
   const portalContainer = portalList.get(portalName);
   return portalContainer ? createPortal(children, portalContainer) : null;
 };
