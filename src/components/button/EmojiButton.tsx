@@ -21,7 +21,7 @@ const EmojiButton = ({
         isClicked
           ? 'bg-gradient-to-br from-[#1853FF] to-[#18FF59]'
           : 'bg-transparent',
-        'transition-all duration-75 rounded-lg hover:bg-gray-900 p-0.5',
+        'transition-all duration-75 rounded-lg hover:bg-gray-900 p-[1px]',
         className,
       )}
       {...props}
@@ -29,7 +29,7 @@ const EmojiButton = ({
       <div
         className={clsx(
           isClicked ? 'bg-gray-900' : 'bg-transparent',
-          'w-full p-2.5 hover:bg-gray-900 rounded-lg',
+          'w-full px-2.5 py-2 hover:bg-gray-900 rounded-lg',
         )}
       >
         {children}
