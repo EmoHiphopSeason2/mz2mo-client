@@ -10,7 +10,7 @@ import AppPortal from '@/components/app-portal';
 import EmojiButton from '@/components/button/EmojiButton';
 import {
   controlEmojiPickerCurrentSongAtom,
-  controlEmojiPickerIsOpenAtom,
+  controlOpenEmojiPickerAtom,
 } from '@/stores/emoji-picker/actions';
 
 // FIX: 서버로부터 emoji 불러오기
@@ -29,7 +29,7 @@ interface EmojiPickerProps {
 
 const EmojiPicker = ({ className }: EmojiPickerProps) => {
   const [iconId, setIconId] = useState<string | null>(); // FIXME: 투표한 이모지의 id로 설정, 없다면 null
-  const setIsOpen = useSetAtom(controlEmojiPickerIsOpenAtom);
+  const setIsOpen = useSetAtom(controlOpenEmojiPickerAtom);
   const currentSong = useAtomValue(controlEmojiPickerCurrentSongAtom);
 
   const handleIconButton = (

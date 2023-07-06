@@ -5,7 +5,7 @@ import emojiPickerAtom from '@/stores/emoji-picker/stores';
 /**
  * emoji picker 모달 상태 (open or close)
  */
-export const controlEmojiPickerIsOpenAtom = atom(
+export const controlOpenEmojiPickerAtom = atom(
   (get) => get(emojiPickerAtom).isOpen,
   (get, set, isOpen: boolean) => {
     const prevAtom = get(emojiPickerAtom);
