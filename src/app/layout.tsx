@@ -22,9 +22,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
-      <body>
+      <body className="bg-gray-500">
         <ReactQueryProvider>
-          <JotaiAtomProvider>{children}</JotaiAtomProvider>
+          <JotaiAtomProvider>
+            <main className="w-[375px] flex-col bg-white drop-shadow-md m-auto">
+              {children}
+            </main>
+          </JotaiAtomProvider>
         </ReactQueryProvider>
       </body>
     </html>
