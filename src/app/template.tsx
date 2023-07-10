@@ -6,9 +6,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
   return (
     <AppPortal.Provider portalName="player-portal">
       <AppPortal.Provider portalName="modal-portal">
-        <AppPortal.Provider portalName="emoji-picker-portal">
-          {children}
-        </AppPortal.Provider>
+        {children}
       </AppPortal.Provider>
     </AppPortal.Provider>
   );
