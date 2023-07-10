@@ -8,7 +8,9 @@ const EmojiVoteNotice = () => {
                 <p className="text-body3 text-white">지금 듣고있는 음악을 표현할 이모지에 투표하세요!</p>
             </div>
             <BasicButton size="sm">
+                <p className="text-body3">
                 투표하기
+                </p>
             </BasicButton>
         </div>
     )
