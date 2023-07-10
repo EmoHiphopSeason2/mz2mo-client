@@ -1,7 +1,5 @@
 'use client';
 
-import { PropsWithChildren } from 'react';
-
 import PlayingPageHeader from './components/page-header';
 import PlayController from './components/play-controller';
 import VinylRecord from './components/vinyl-record';
