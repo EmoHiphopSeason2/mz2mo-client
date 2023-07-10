@@ -10,9 +10,11 @@ const PlayingPage = () => {
   return (
     <>
       <PlayingPageHeader songTitle="Hype Boy" singerName="NewJeans" />
-      <VinylRecord />
-      <PlayController />
-      <EmojiVoteList />
+      <div className='flex flex-col my-auto'>
+        <VinylRecord />
+        <PlayController />
+        <EmojiVoteList />
+      </div>
       <EmojiVoteNotice />
     </>
   );
