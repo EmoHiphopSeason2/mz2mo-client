@@ -5,6 +5,7 @@ import {
   UpdatePlayerInstanceType,
   UpdatePlayingStateType,
   UpdatePlaylistActionType,
+  UpdateLoopStateType,
 } from '@/types/atom/youtubeController';
 
 /**
@@ -164,4 +165,17 @@ export const controlPlayingStateAtom = atom(
         set(youtubeControllerAtom, prevAtom);
     }
   },
+);
+
+
+/**
+ * 현재 플레이어의 반복 재생 여부를 조정하는 derivedAtom (controlLoopStateAtom)
+ * 재생, 정지, 전환 세 가지 케이스로 나누어 각각의 타입을 적용할 수 있음.
+ */
+export const controlLoopStateAtom = atom(
+  (get) => get(youtubeControllerAtom).isPlaying,
+  (get, set, update: UpdateLoopStateType) => {
+    const prevAtom = get(youtubeControllerAtom);
+      set(youtubeControllerAtom, { ...prevAtom, loopState: update.action });
+    }
 );
