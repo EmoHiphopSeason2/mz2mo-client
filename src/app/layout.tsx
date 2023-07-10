@@ -25,9 +25,7 @@ export default function RootLayout({
       <body className="bg-gray-500">
         <ReactQueryProvider>
           <JotaiAtomProvider>
-            <main className="w-[375px] h-screen flex-col bg-white drop-shadow-md m-auto">
-              {children}
-            </main>
+            {children}
           </JotaiAtomProvider>
         </ReactQueryProvider>
       </body>
