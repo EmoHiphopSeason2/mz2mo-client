@@ -1,0 +1,13 @@
+.volumeBar {
+    -webkit-appearance: none;
+
+    background-image: linear-gradient(to right, white 0%, white var(--volume-percent), #444444 var(--volume-percent), #444444 100%);
+
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 4px;
+        height: 4px;
+        background-color: white;
+        border-radius: 0 8px 8px 0;
+    }
+}
