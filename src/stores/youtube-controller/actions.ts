@@ -177,7 +177,7 @@ export const controlPlayingStateAtom = atom(
  * 재생, 정지, 전환 세 가지 케이스로 나누어 각각의 타입을 적용할 수 있음.
  */
 export const controlLoopStateAtom = atom(
-  (get) => get(youtubeControllerAtom).isPlaying,
+  (get) => get(youtubeControllerAtom).loopState,
   (get, set, update: UpdateLoopStateType) => {
     const prevAtom = get(youtubeControllerAtom);
       set(youtubeControllerAtom, { ...prevAtom, loopState: update.action });
