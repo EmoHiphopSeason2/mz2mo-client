@@ -1,6 +1,5 @@
 .volumeBar {
     -webkit-appearance: none;
-
     background-image: linear-gradient(to right, white 0%, white var(--volume-percent), #444444 var(--volume-percent), #444444 100%);
 
     &::-webkit-slider-thumb {

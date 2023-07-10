@@ -1,7 +1,13 @@
 import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useState } from 'react';
 
-type UseToggleReturnType = [boolean, () => void, () => void, () => void, Dispatch<SetStateAction<boolean>>]
+type UseToggleReturnType = [
+  boolean,
+  () => void,
+  () => void,
+  () => void,
+  Dispatch<SetStateAction<boolean>>,
+];
 
 /**
  * @author RookieAND (백광인)

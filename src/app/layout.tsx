@@ -24,9 +24,7 @@ export default function RootLayout({
     <html lang="ko" className={`${pretendard.variable}`}>
       <body className="bg-gray-500">
         <ReactQueryProvider>
-          <JotaiAtomProvider>
-            {children}
-          </JotaiAtomProvider>
+          <JotaiAtomProvider>{children}</JotaiAtomProvider>
         </ReactQueryProvider>
       </body>
     </html>
