@@ -7,7 +7,7 @@ import AppPortal from '@/components/app-portal';
 const Layout = ({ children }: PropsWithChildren) => {
   return (
     <AppPortal.Provider portalName="emoji-picker-portal">
-      <main className="w-[480px] h-screen flex-col bg-black drop-shadow-md m-auto">
+      <main className="w-[480px] h-screen flex-col bg-black drop-shadow-md m-auto overflow-hidden">
         {children}
       </main>
     </AppPortal.Provider>
