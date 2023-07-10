@@ -148,14 +148,18 @@ export const controlPlayingStateAtom = atom(
   (get) => get(youtubeControllerAtom).isPlaying,
   (get, set, update: UpdatePlayingStateType) => {
     const prevAtom = get(youtubeControllerAtom);
+    const playListSongAmount = prevAtom.playList.length;
+
     switch (update.action) {
       case 'start':
+        if (!playListSongAmount) return;
         set(youtubeControllerAtom, { ...prevAtom, isPlaying: true });
         break;
       case 'stop':
         set(youtubeControllerAtom, { ...prevAtom, isPlaying: false });
         break;
       case 'toggle':
+        if (!prevAtom.isPlaying && !playListSongAmount) return;
         set(youtubeControllerAtom, {
           ...prevAtom,
           isPlaying: !prevAtom.isPlaying,
