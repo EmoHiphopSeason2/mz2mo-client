@@ -1,13 +1,19 @@
 'use client'
 
 import clsx from 'clsx';
+import { useAtomValue } from 'jotai';
+
+import { controlCurrentDurationAtom } from '@/stores/youtube-controller';
+import FormatUtil from '@/utils/format';
 
 import * as styles from './VinylRecord.module.scss';
 
 const VinylRecordList = () => {
+  const currentDuration = useAtomValue(controlCurrentDurationAtom);
+
   return (
     <>
-      <p className="text-center w-100 text-white text-caption mt-[9px]">{`-2:27`}</p>
+      <p className="text-center w-100 text-white text-caption mt-[9px]">{FormatUtil.formatTimeToMMSS(currentDuration)}</p>
       <div className="w-[1060px] -translate-x-[290px] flex gap-x-5 justify-center m-auto items-center">
         <VinylRecord />
         <div className="min-w-[360px] h-[360px] rounded-full bg-white/30 flex flex-col justify-center m-auto items-center">
