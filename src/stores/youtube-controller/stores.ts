@@ -4,7 +4,7 @@ import { YoutubeControllerType } from '@/types/atom';
 
 const youtubeControllerAtom = atom<YoutubeControllerType>({
   playerInstance: null,
-  playList: ['_G6kcpRxaio'],
+  playList: [],
   currentDuration: 0,
   currentPlayingIndex: 0,
   loopState: 'all',
