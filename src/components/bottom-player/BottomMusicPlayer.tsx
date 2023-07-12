@@ -59,7 +59,7 @@ const BottomMusicPlayer = () => {
 
   return (
     <>
-      <section className="flex flex-col min-w-[360px] max-w-[480px] mx-auto">
+      <section className="flex flex-col w-[100%] min-w-[360px] max-w-[480px] mx-auto fixed bottom-0 z-100">
         <progress
           value={maxDuration - currentDuration}
           max={maxDuration}
