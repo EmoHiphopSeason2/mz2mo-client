@@ -6,7 +6,7 @@ import AlertError from '@/assets/icons/alertError.svg';
 import AlertInfo from '@/assets/icons/alertInfo.svg';
 import AlertSuccess from '@/assets/icons/alertSuccess.svg';
 import { removeToastAtom } from '@/stores/toast';
-import { Type } from '@/types/atom/toast';
+import { ToastType } from '@/types/atom/toast';
 
 const TOAST_DURATION = 3000;
 const ANIMATION_DURATION = 350;
@@ -15,10 +15,10 @@ interface ToastProps {
   title: string;
   message: string;
   id: string;
-  type: Type;
+  type: ToastType;
 }
 
-const ToastIcon = ({ type }: { type: Type }) => {
+const ToastIcon = ({ type }: { type: ToastType }) => {
   switch (type) {
     case 'success':
       return <AlertSuccess className="w-6 h-6 text-[#4F6EFF]" />;

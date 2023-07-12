@@ -1,8 +1,8 @@
-export type Type = 'success' | 'info' | 'error';
+export type ToastType = 'success' | 'info' | 'error';
 
-export interface ToastType {
-  type: Type;
+export type ToasterType = {
+  type: ToastType;
   title: string;
   message: string;
   id: string;
-}
+}[];

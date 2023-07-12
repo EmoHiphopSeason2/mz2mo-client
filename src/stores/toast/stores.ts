@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
 
-import { ToastType } from '@/types/atom';
+import { ToasterType } from '@/types/atom';
 
-export const toasterAtom = atom<ToastType[]>([]);
+export const toasterAtom = atom<ToasterType>([]);
