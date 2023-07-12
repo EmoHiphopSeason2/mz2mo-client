@@ -1,0 +1,12 @@
+.progress {
+  appearance: none;
+
+  &::-webkit-progress-bar {
+    background-image: theme('colors.mz.02');
+  }
+
+  &::-webkit-progress-value {
+    background-color: theme('colors.gray.700');
+  }
+}
+
