@@ -32,7 +32,9 @@ const BottomMusicPlayer = () => {
   );
 
   const playerInstance = useAtomValue(playerInstanceAtom);
-  const maxDuration = playerInstance?.getDuration() ?? currentDuration;
+
+  // NOTE : PlayerInstance 가 init 되지 않았다면 회색 Progress Bar를 보여주기 위해 1로 설정
+  const maxDuration = playerInstance?.getDuration() ?? 1;
   const PlayingIcon = isPlaying ? ControlPauseIcon : ControlPlayIcon;
 
   const togglePlayingState = useCallback(() => {
@@ -72,8 +74,21 @@ const BottomMusicPlayer = () => {
     return false;
   };
 
-  const titleBoxStyle = {
-    '--titleBox-width': `${titleBoxRef.current?.offsetWidth}px`,
+  // NOTE : 곡 제목과 가수 명을 담은 DOM 중 width가 큰 값을 구하는 함수 getLongestWidthInTitleBox
+  const getLongestWidthInTitleBox = () => {
+    const childNodeList = titleBoxRef.current?.childNodes;
+    if (!childNodeList) return;
+
+    return Math.max(
+      ...Array.from(childNodeList).map((childNode) => {
+        return childNode instanceof HTMLElement ? childNode.offsetWidth : 0;
+      }),
+    );
+  };
+
+  const animateWidthStyle = {
+    '--right-side': `${titleBoxRef.current?.offsetWidth}px`,
+    '--left-side': `-${getLongestWidthInTitleBox()}px`,
   } as React.CSSProperties;
 
   return (
@@ -94,7 +109,7 @@ const BottomMusicPlayer = () => {
             {playerInstance ? (
               <>
                 <h4
-                  style={titleBoxStyle}
+                  style={animateWidthStyle}
                   className={clsx(
                     isOverflow('songTitle') && styles.longText,
                     !isPlaying && styles.isStopped,
@@ -104,14 +119,14 @@ const BottomMusicPlayer = () => {
                   이브, 프시케 그리고 푸른 수염의 아내
                 </h4>
                 <p
-                  style={titleBoxStyle}
+                  style={animateWidthStyle}
                   className={clsx(
                     isOverflow('singerName') && styles.longText,
                     !isPlaying && styles.isStopped,
                     'text-body3 text-white text-clip whitespace-nowrap w-fit',
                   )}
                 >
-                  NewJeans
+                  LE SSERAFIM
                 </p>
               </>
             ) : null}
