@@ -47,6 +47,12 @@ module.exports = {
           '02': 'linear-gradient(135deg, #18FF59 0%, #1853FF 100%)',
         }
       },
+      zIndex: {
+        modal: 9999,
+        toast: 999,
+        emojiPicker: 199,
+        musicPlayer: 99,
+      }
     },
   },
   plugins: [],
