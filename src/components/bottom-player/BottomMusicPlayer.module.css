@@ -2,7 +2,7 @@
     appearance: none;
 
     &::-webkit-progress-bar {
-        background-image: theme('colors.mz.1');
+        background-image: theme('colors.mz.01');
     }
     
     &::-webkit-progress-value {

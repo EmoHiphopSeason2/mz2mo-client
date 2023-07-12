@@ -43,7 +43,8 @@ module.exports = {
           900: '#262626',
         },
         mz: {
-          1: 'linear-gradient(135deg, #18FF59 0%, #1853FF 100%)',
+          '01': 'linear-gradient(90.35deg, #1853FF 0.21%, #18FFFF 126.45%)',
+          '02': 'linear-gradient(135deg, #18FF59 0%, #1853FF 100%)',
         }
       },
     },
