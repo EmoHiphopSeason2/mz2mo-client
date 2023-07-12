@@ -38,18 +38,24 @@ const BottomMusicPlayer = () => {
   }, [isPlaying]);
 
   const selectPlaylist = {
-    prevSong: () => setCurrentIndex(currentIndex - 1),
-    nextSong: () => setCurrentIndex(currentIndex + 1),
+    prevSong: useCallback(
+      () => setCurrentIndex(currentIndex - 1),
+      [currentIndex],
+    ),
+    nextSong: useCallback(
+      () => setCurrentIndex(currentIndex + 1),
+      [currentIndex],
+    ),
   };
 
   const handleCurrentDuration = (e: React.MouseEvent<HTMLProgressElement>) => {
     const MAX_LENGTH = 480;
     const { offsetX } = e.nativeEvent;
-    const nextDuration = maxDuration * (MAX_LENGTH - offsetX) / MAX_LENGTH;
+    const nextDuration = (maxDuration * (MAX_LENGTH - offsetX)) / MAX_LENGTH;
 
     playerInstance?.seekTo(nextDuration, true);
     setCurrentDuration(nextDuration);
-  }
+  };
 
   return (
     <>
@@ -57,12 +63,17 @@ const BottomMusicPlayer = () => {
         <progress
           value={maxDuration - currentDuration}
           max={maxDuration}
-          className={clsx(styles.progress, 'min-w-[360px] max-w-[480px] h-[3px] rotate-180')}
+          className={clsx(
+            styles.progress,
+            'min-w-[360px] max-w-[480px] h-[3px] rotate-180',
+          )}
           onClick={handleCurrentDuration}
         />
         <div className="bg-gray-900 py-4 px-5 flex gap-[17px] items-center">
           <div className="flex flex-col mr-auto">
-            <h4 className="text-h4 text-white">{FormatUtil.formatTextEllipsis('Hype Boy', 10)}</h4>
+            <h4 className="text-h4 text-white">
+              {FormatUtil.formatTextEllipsis('Hype Boy', 10)}
+            </h4>
             <p className="text-body3 text-white">NewJeans</p>
           </div>
           <div className="flex gap-8 items-center">
