@@ -8,7 +8,7 @@ import AlertSuccess from '@/assets/icons/alertSuccess.svg';
 import { removeToastAtom } from '@/stores/toast';
 import { Type } from '@/types/atom/toast';
 
-const toastDuration = 3000;
+const TOAST_DURATION = 3000;
 const ANIMATION_DURATION = 350;
 
 interface ToastProps {
@@ -39,11 +39,11 @@ const Toast = ({ title, id, message, type }: ToastProps) => {
     setOpacity(1);
     const timeoutForRemove = setTimeout(() => {
       removeToastItem(id);
-    }, toastDuration);
+    }, TOAST_DURATION);
 
     const timeoutForVisible = setTimeout(() => {
       setOpacity(0);
-    }, toastDuration - ANIMATION_DURATION);
+    }, TOAST_DURATION - ANIMATION_DURATION);
 
     return () => {
       clearTimeout(timeoutForRemove);
