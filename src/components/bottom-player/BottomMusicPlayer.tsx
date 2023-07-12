@@ -65,7 +65,7 @@ const BottomMusicPlayer = () => {
           max={maxDuration}
           className={clsx(
             styles.progress,
-            'min-w-[360px] max-w-[480px] h-[3px] rotate-180',
+            'w-[100%] h-[3px] rotate-180',
           )}
           onClick={handleCurrentDuration}
         />
