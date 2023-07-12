@@ -71,7 +71,7 @@ const BottomMusicPlayer = () => {
         />
         <div className="bg-gray-900 py-4 px-5 flex gap-[17px] items-center">
           <div className="flex flex-col mr-auto">
-            <h4 className="text-h4 text-white">
+            <h4 className="text-white">
               {FormatUtil.formatTextEllipsis('Hype Boy', 10)}
             </h4>
             <p className="text-body3 text-white">NewJeans</p>
