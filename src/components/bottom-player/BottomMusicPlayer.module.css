@@ -10,26 +10,3 @@
   }
 }
 
-.longText {
-    animation: scrolling-left 10s linear infinite;
-    overflow: hidden;
-}
-
-.isStopped {
-    animation-play-state: paused
-}
-
-@keyframes scrolling-left {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(var(--left-side));
-  }
-  50.00001% {
-    transform: translateX(var(--right-side));
-  }
-  100% {
-    transform: translateX(0);
-  }
-}

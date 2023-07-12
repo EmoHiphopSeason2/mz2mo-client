@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useRef } from 'react';
+import { useRef } from 'react';
 
 import clsx from 'clsx';
 import { useAtom, useAtomValue } from 'jotai';
@@ -17,13 +17,11 @@ import {
   controlPlayingStateAtom,
   playerInstanceAtom,
 } from '@/stores/youtube-controller';
-import FormatUtil from '@/utils/format';
 
 import * as styles from './BottomMusicPlayer.module.css';
 
 const BottomMusicPlayer = () => {
   const progressRef = useRef<HTMLProgressElement | null>(null);
-  const titleBoxRef = useRef<HTMLDivElement | null>(null);
 
   const [isPlaying, setIsPlaying] = useAtom(controlPlayingStateAtom);
   const [currentIndex, setCurrentIndex] = useAtom(controlCurrentPlayingAtom);
@@ -37,20 +35,12 @@ const BottomMusicPlayer = () => {
   const maxDuration = playerInstance?.getDuration() ?? 1;
   const PlayingIcon = isPlaying ? ControlPauseIcon : ControlPlayIcon;
 
-  const togglePlayingState = useCallback(() => {
+  const togglePlayingState = () =>
     setIsPlaying({ action: isPlaying ? 'stop' : 'start' });
-  }, [isPlaying]);
 
-  const selectPlaylist = {
-    prevSong: useCallback(
-      () => setCurrentIndex(currentIndex - 1),
-      [currentIndex],
-    ),
-    nextSong: useCallback(
-      () => setCurrentIndex(currentIndex + 1),
-      [currentIndex],
-    ),
-  };
+  // NOTE : 재생하고자 하는 음악 변경 시 애니메이션도 처음부터 다시 재생시키는 로직 추가
+  const selectPlaylist = (type: 'prev' | 'next') =>
+    setCurrentIndex(currentIndex + (type === 'prev' ? -1 : 1));
 
   const handleCurrentDuration = (e: React.MouseEvent<HTMLProgressElement>) => {
     if (!progressRef.current || !playerInstance) return;
@@ -63,34 +53,6 @@ const BottomMusicPlayer = () => {
     setCurrentDuration(nextDuration);
   };
 
-  const isOverflow = (node: 'songTitle' | 'singerName') => {
-    const nodeIndex = node === 'songTitle' ? 0 : 1;
-    const childNode = titleBoxRef.current?.childNodes[nodeIndex];
-    if (childNode instanceof HTMLElement && titleBoxRef.current) {
-      const { offsetWidth: childNodeWidth } = childNode;
-      const { offsetWidth: titleBoxWidth } = titleBoxRef.current;
-      return childNodeWidth >= titleBoxWidth;
-    }
-    return false;
-  };
-
-  // NOTE : 곡 제목과 가수 명을 담은 DOM 중 width가 큰 값을 구하는 함수 getLongestWidthInTitleBox
-  const getLongestWidthInTitleBox = () => {
-    const childNodeList = titleBoxRef.current?.childNodes;
-    if (!childNodeList) return;
-
-    return Math.max(
-      ...Array.from(childNodeList).map((childNode) => {
-        return childNode instanceof HTMLElement ? childNode.offsetWidth : 0;
-      }),
-    );
-  };
-
-  const animateWidthStyle = {
-    '--right-side': `${titleBoxRef.current?.offsetWidth}px`,
-    '--left-side': `-${getLongestWidthInTitleBox()}px`,
-  } as React.CSSProperties;
-
   return (
     <>
       <section className="flex flex-col w-[100%] min-w-[360px] max-w-[480px] mx-auto fixed bottom-0 z-musicPlayer">
@@ -102,31 +64,14 @@ const BottomMusicPlayer = () => {
           onClick={handleCurrentDuration}
         />
         <div className="bg-gray-900 py-4 px-5 flex gap-[17px] h-20 items-center">
-          <div
-            className="flex flex-col mr-auto overflow-hidden flex-1"
-            ref={titleBoxRef}
-          >
+          <div className="flex flex-col mr-auto flex-1 overflow-hidden">
             {playerInstance ? (
               <>
-                <h4
-                  style={animateWidthStyle}
-                  className={clsx(
-                    isOverflow('songTitle') && styles.longText,
-                    !isPlaying && styles.isStopped,
-                    'text-white text-clip whitespace-nowrap w-fit',
-                  )}
-                >
-                  이브, 프시케 그리고 푸른 수염의 아내
+                <h4 className="text-white whitespace-nowrap text-ellipsis overflow-hidden">
+                  {'한 페이지가 될 수 있게 (Time of Our Life)'}
                 </h4>
-                <p
-                  style={animateWidthStyle}
-                  className={clsx(
-                    isOverflow('singerName') && styles.longText,
-                    !isPlaying && styles.isStopped,
-                    'text-body3 text-white text-clip whitespace-nowrap w-fit',
-                  )}
-                >
-                  LE SSERAFIM
+                <p className="text-body3 text-white whitespace-nowrap text-ellipsis overflow-hidden">
+                  DAY6
                 </p>
               </>
             ) : null}
@@ -137,7 +82,7 @@ const BottomMusicPlayer = () => {
                 width={20}
                 height={20}
                 className="text-white my-auto"
-                onClick={selectPlaylist.prevSong}
+                onClick={() => selectPlaylist('prev')}
               />
               <PlayingIcon
                 width={40}
@@ -149,7 +94,7 @@ const BottomMusicPlayer = () => {
                 width={20}
                 height={20}
                 className="text-white my-auto"
-                onClick={selectPlaylist.nextSong}
+                onClick={() => selectPlaylist('next')}
               />
             </div>
             <PlayListIcon
