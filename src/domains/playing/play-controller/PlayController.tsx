@@ -21,7 +21,7 @@ import {
   controlVolumeAtom,
 } from '@/stores/youtube-controller';
 
-import * as styles from './PlayController.module.scss';
+import * as styles from './PlayController.module.css';
 
 const PlayController = () => {
   const [isShowVolumeBar, toggleVolumeBar] = useToggle(false);
