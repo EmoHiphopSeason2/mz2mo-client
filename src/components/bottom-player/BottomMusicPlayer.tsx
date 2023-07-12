@@ -22,7 +22,8 @@ import FormatUtil from '@/utils/format';
 import * as styles from './BottomMusicPlayer.module.css';
 
 const BottomMusicPlayer = () => {
-  const progressRef = useRef<HTMLProgressElement | null>();
+  const progressRef = useRef<HTMLProgressElement | null>(null);
+  const titleBoxRef = useRef<HTMLDivElement | null>(null);
 
   const [isPlaying, setIsPlaying] = useAtom(controlPlayingStateAtom);
   const [currentIndex, setCurrentIndex] = useAtom(controlCurrentPlayingAtom);
@@ -51,33 +52,65 @@ const BottomMusicPlayer = () => {
   };
 
   const handleCurrentDuration = (e: React.MouseEvent<HTMLProgressElement>) => {
-    const MAX_LENGTH = progressRef.current?.offsetWidth ?? 480;
+    if (!progressRef.current || !playerInstance) return;
+
+    const MAX_LENGTH = progressRef.current.offsetWidth;
     const { offsetX } = e.nativeEvent;
     const nextDuration = (maxDuration * (MAX_LENGTH - offsetX)) / MAX_LENGTH;
 
-    playerInstance?.seekTo(nextDuration, true);
+    playerInstance.seekTo(nextDuration, true);
     setCurrentDuration(nextDuration);
   };
+
+  const isOverflow = (node: 'songTitle' | 'singerName') => {
+      const nodeIndex = node === 'songTitle' ? 0 : 1;
+      const childNode = titleBoxRef.current?.childNodes[nodeIndex];
+      if (childNode instanceof HTMLElement && titleBoxRef.current) {
+        const { offsetWidth: childNodeWidth } = childNode;
+        const { offsetWidth: titleBoxWidth } = titleBoxRef.current;
+        console.log(childNodeWidth, titleBoxWidth);
+        return childNodeWidth >= titleBoxWidth;
+      }
+      return false;
+  }
+
+  const titleBoxStyle = {
+    '--titleBox-width': `${titleBoxRef.current?.offsetWidth}px`,
+  } as React.CSSProperties;
 
   return (
     <>
       <section className="flex flex-col w-[100%] min-w-[360px] max-w-[480px] mx-auto fixed bottom-0 z-100">
         <progress
-          ref={(element) => progressRef.current = element}
+          ref={progressRef}
           value={maxDuration - currentDuration}
           max={maxDuration}
-          className={clsx(
-            styles.progress,
-            'w-[100%] h-[3px] rotate-180',
-          )}
+          className={clsx(styles.progress, 'w-[100%] h-[3px] rotate-180')}
           onClick={handleCurrentDuration}
         />
         <div className="bg-gray-900 py-4 px-5 flex gap-[17px] items-center">
-          <div className="flex flex-col mr-auto">
-            <h4 className="text-white">
-              {FormatUtil.formatTextEllipsis('Hype Boy', 10)}
+          <div
+            className="flex flex-col mr-auto overflow-hidden flex-1"
+            ref={titleBoxRef}
+          >
+            <h4
+              style={titleBoxStyle}
+              className={clsx(
+                isOverflow('songTitle') && styles.longText,
+                'text-white text-clip whitespace-nowrap w-fit',
+              )}
+            >
+              이브, 프시케 그리고 푸른 수염의 아내
             </h4>
-            <p className="text-body3 text-white">NewJeans</p>
+            <p
+              style={titleBoxStyle}
+              className={clsx(
+                isOverflow('singerName') && styles.longText,
+                'text-body3 text-white text-clip whitespace-nowrap w-fit',
+              )}
+            >
+              NewJeans
+            </p>
           </div>
           <div className="flex gap-8 items-center">
             <div className="flex gap-[23px] items-center">
