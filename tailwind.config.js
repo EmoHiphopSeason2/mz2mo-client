@@ -42,7 +42,17 @@ module.exports = {
           800: '#444444',
           900: '#262626',
         },
+        mz: {
+          '01': 'linear-gradient(90.35deg, #1853FF 0.21%, #18FFFF 126.45%)',
+          '02': 'linear-gradient(135deg, #18FF59 0%, #1853FF 100%)',
+        }
       },
+      zIndex: {
+        modal: 9999,
+        toast: 999,
+        emojiPicker: 199,
+        musicPlayer: 99,
+      }
     },
   },
   plugins: [],

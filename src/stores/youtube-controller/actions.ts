@@ -49,13 +49,12 @@ export const controlCurrentPlayingAtom = atom(
     const prevAtom = get(youtubeControllerAtom);
     const prevSongAmount = prevAtom.playList.length;
 
-    if (updatedIndex < 0) updatedIndex = 0;
-    if (updatedIndex >= prevSongAmount) updatedIndex = prevSongAmount - 1;
+    if (updatedIndex < 0) updatedIndex += prevSongAmount;
 
     // NOTE : 다음 곡으로 이동했으므로, 재생 시간 (currentDuration) 도 0초로 초기화
     set(youtubeControllerAtom, {
       ...prevAtom,
-      currentPlayingIndex: updatedIndex,
+      currentPlayingIndex: updatedIndex % prevSongAmount,
       currentDuration: 0,
     });
   },

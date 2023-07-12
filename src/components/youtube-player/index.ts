@@ -1,3 +1,3 @@
-import YoutubePlayerController from './YoutubePlayerController';
+import YoutubePlayer from './YoutubePlayer';
 
-export default YoutubePlayerController;
+export default YoutubePlayer;
