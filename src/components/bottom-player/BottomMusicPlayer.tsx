@@ -33,7 +33,6 @@ const BottomMusicPlayer = () => {
 
   const playerInstance = useAtomValue(playerInstanceAtom);
   const maxDuration = playerInstance?.getDuration() ?? currentDuration;
-
   const PlayingIcon = isPlaying ? ControlPauseIcon : ControlPlayIcon;
 
   const togglePlayingState = useCallback(() => {
@@ -63,16 +62,15 @@ const BottomMusicPlayer = () => {
   };
 
   const isOverflow = (node: 'songTitle' | 'singerName') => {
-      const nodeIndex = node === 'songTitle' ? 0 : 1;
-      const childNode = titleBoxRef.current?.childNodes[nodeIndex];
-      if (childNode instanceof HTMLElement && titleBoxRef.current) {
-        const { offsetWidth: childNodeWidth } = childNode;
-        const { offsetWidth: titleBoxWidth } = titleBoxRef.current;
-        console.log(childNodeWidth, titleBoxWidth);
-        return childNodeWidth >= titleBoxWidth;
-      }
-      return false;
-  }
+    const nodeIndex = node === 'songTitle' ? 0 : 1;
+    const childNode = titleBoxRef.current?.childNodes[nodeIndex];
+    if (childNode instanceof HTMLElement && titleBoxRef.current) {
+      const { offsetWidth: childNodeWidth } = childNode;
+      const { offsetWidth: titleBoxWidth } = titleBoxRef.current;
+      return childNodeWidth >= titleBoxWidth;
+    }
+    return false;
+  };
 
   const titleBoxStyle = {
     '--titleBox-width': `${titleBoxRef.current?.offsetWidth}px`,
@@ -80,67 +78,69 @@ const BottomMusicPlayer = () => {
 
   return (
     <>
-      <section className="flex flex-col w-[100%] min-w-[360px] max-w-[480px] mx-auto fixed bottom-0 z-musicPlayer">
-        <progress
-          ref={progressRef}
-          value={maxDuration - currentDuration}
-          max={maxDuration}
-          className={clsx(styles.progress, 'w-[100%] h-[3px] rotate-180')}
-          onClick={handleCurrentDuration}
-        />
-        <div className="bg-gray-900 py-4 px-5 flex gap-[17px] items-center">
-          <div
-            className="flex flex-col mr-auto overflow-hidden flex-1"
-            ref={titleBoxRef}
-          >
-            <h4
-              style={titleBoxStyle}
-              className={clsx(
-                isOverflow('songTitle') && styles.longText,
-                'text-white text-clip whitespace-nowrap w-fit',
-              )}
+      {playerInstance ? (
+        <section className="flex flex-col w-[100%] min-w-[360px] max-w-[480px] mx-auto fixed bottom-0 z-musicPlayer">
+          <progress
+            ref={progressRef}
+            value={maxDuration - currentDuration}
+            max={maxDuration}
+            className={clsx(styles.progress, 'w-[100%] h-[3px] rotate-180')}
+            onClick={handleCurrentDuration}
+          />
+          <div className="bg-gray-900 py-4 px-5 flex gap-[17px] items-center">
+            <div
+              className="flex flex-col mr-auto overflow-hidden flex-1"
+              ref={titleBoxRef}
             >
-              이브, 프시케 그리고 푸른 수염의 아내
-            </h4>
-            <p
-              style={titleBoxStyle}
-              className={clsx(
-                isOverflow('singerName') && styles.longText,
-                'text-body3 text-white text-clip whitespace-nowrap w-fit',
-              )}
-            >
-              NewJeans
-            </p>
-          </div>
-          <div className="flex gap-8 items-center">
-            <div className="flex gap-[23px] items-center">
-              <ControlPrevIcon
-                width={20}
-                height={20}
-                className="text-white my-auto"
-                onClick={selectPlaylist.prevSong}
-              />
-              <PlayingIcon
+              <h4
+                style={titleBoxStyle}
+                className={clsx(
+                  isOverflow('songTitle') && styles.longText,
+                  'text-white text-clip whitespace-nowrap w-fit',
+                )}
+              >
+                이브, 프시케 그리고 푸른 수염의 아내
+              </h4>
+              <p
+                style={titleBoxStyle}
+                className={clsx(
+                  isOverflow('singerName') && styles.longText,
+                  'text-body3 text-white text-clip whitespace-nowrap w-fit',
+                )}
+              >
+                NewJeans
+              </p>
+            </div>
+            <div className="flex gap-8 items-center">
+              <div className="flex gap-[23px] items-center">
+                <ControlPrevIcon
+                  width={20}
+                  height={20}
+                  className="text-white my-auto"
+                  onClick={selectPlaylist.prevSong}
+                />
+                <PlayingIcon
+                  width={40}
+                  height={40}
+                  className="text-white cursor-pointer"
+                  onClick={togglePlayingState}
+                />
+                <ControlNextIcon
+                  width={20}
+                  height={20}
+                  className="text-white my-auto"
+                  onClick={selectPlaylist.nextSong}
+                />
+              </div>
+              <PlayListIcon
                 width={40}
                 height={40}
                 className="text-white cursor-pointer"
-                onClick={togglePlayingState}
-              />
-              <ControlNextIcon
-                width={20}
-                height={20}
-                className="text-white my-auto"
-                onClick={selectPlaylist.nextSong}
               />
             </div>
-            <PlayListIcon
-              width={40}
-              height={40}
-              className="text-white cursor-pointer"
-            />
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
       <YoutubePlayer />
     </>
   );
