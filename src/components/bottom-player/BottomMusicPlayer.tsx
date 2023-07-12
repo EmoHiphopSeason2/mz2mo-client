@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 
 import clsx from 'clsx';
 import { useAtom, useAtomValue } from 'jotai';
@@ -22,6 +22,8 @@ import FormatUtil from '@/utils/format';
 import * as styles from './BottomMusicPlayer.module.css';
 
 const BottomMusicPlayer = () => {
+  const progressRef = useRef<HTMLProgressElement | null>();
+
   const [isPlaying, setIsPlaying] = useAtom(controlPlayingStateAtom);
   const [currentIndex, setCurrentIndex] = useAtom(controlCurrentPlayingAtom);
   const [currentDuration, setCurrentDuration] = useAtom(
@@ -49,7 +51,7 @@ const BottomMusicPlayer = () => {
   };
 
   const handleCurrentDuration = (e: React.MouseEvent<HTMLProgressElement>) => {
-    const MAX_LENGTH = 480;
+    const MAX_LENGTH = progressRef.current?.offsetWidth ?? 480;
     const { offsetX } = e.nativeEvent;
     const nextDuration = (maxDuration * (MAX_LENGTH - offsetX)) / MAX_LENGTH;
 
@@ -61,6 +63,7 @@ const BottomMusicPlayer = () => {
     <>
       <section className="flex flex-col w-[100%] min-w-[360px] max-w-[480px] mx-auto fixed bottom-0 z-100">
         <progress
+          ref={(element) => progressRef.current = element}
           value={maxDuration - currentDuration}
           max={maxDuration}
           className={clsx(
