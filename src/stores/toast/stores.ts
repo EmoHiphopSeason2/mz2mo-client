@@ -1,5 +1,8 @@
 import { atom } from 'jotai';
 
-import { ToasterType } from '@/types/atom';
+import { ToastProviderType } from '@/types/atom';
 
-export const toasterAtom = atom<ToasterType>([]);
+export const toasterAtom = atom<ToastProviderType>({
+  toasts: [],
+  sequence: 0,
+});
