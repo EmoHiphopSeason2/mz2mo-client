@@ -10,7 +10,7 @@ const Toaster = () => {
   const toasts = useAtomValue(useToastAtom);
   return (
     <AppPortal.Wrapper portalName="toast-portal">
-      <div className="fixed space-y-2 -translate-x-1/2 left-1/2 top-4">
+      <div className="fixed space-y-2 -translate-x-1/2 left-1/2 top-32">
         {toasts.map((toast) => (
           <Toast key={toast.id} {...toast} />
         ))}
