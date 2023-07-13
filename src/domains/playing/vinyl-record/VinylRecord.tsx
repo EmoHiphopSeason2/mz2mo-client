@@ -52,10 +52,9 @@ const VinylRecordList = () => {
     const distanceFromCenter = Math.sqrt((clickedX - 180) ** 2 + (clickedY - 180) ** 2);
 
     const distance = Math.sqrt((clickedX - (distanceFromCenter + 180)) ** 2 + (clickedY - 180) ** 2);
-    const valueInArcsin = (distance / 2 / distanceFromCenter);
     
     // NOTE : arcsin 의 반환값은 radian 이기 때문에, 각도 표기법으로 반환하기 위해 (180 / π) 를 곱해줘야 한다.
-    let theta = 2 * (Math.asin(valueInArcsin > 1 ? 1 : valueInArcsin) * (180 / Math.PI));
+    let theta = 2 * (Math.asin(Math.min(distance / 2 / distanceFromCenter, 1)) * (180 / Math.PI));
 
     // NOTE : offsetY 좌표가 180 미만인 경우 중심각이 180도 이상이라는 의미이므로 추가 연산을 진행한다.
     theta = clickedY <= 180 ? 360 - theta : theta;
