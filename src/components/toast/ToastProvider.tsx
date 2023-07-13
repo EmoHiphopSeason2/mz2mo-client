@@ -9,13 +9,13 @@ import { useToastAtom } from '@/stores/toast';
 const Toaster = () => {
   const toasts = useAtomValue(useToastAtom);
   return (
-    <AppPortal.Provider portalName="toast-portal">
+    <AppPortal.Wrapper portalName="toast-portal">
       <div className="fixed space-y-2 -translate-x-1/2 left-1/2 top-4">
-        {toasts.map((toast) => {
-          return <Toast key={toast.id} {...toast} />;
-        })}
+        {toasts.map((toast) => (
+          <Toast key={toast.id} {...toast} />
+        ))}
       </div>
-    </AppPortal.Provider>
+    </AppPortal.Wrapper>
   );
 };
 
