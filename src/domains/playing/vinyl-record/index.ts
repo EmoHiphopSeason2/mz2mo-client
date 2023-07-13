@@ -1,3 +1,3 @@
-import VinylRecord from './VinylRecord';
+import VinylRecordList from './VinylRecord';
 
-export default VinylRecord;
+export default VinylRecordList;
