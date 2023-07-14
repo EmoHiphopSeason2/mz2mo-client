@@ -48,7 +48,7 @@ const EmojiPicker = ({ className }: EmojiPickerProps) => {
       <div
         className={clsx(
           className,
-          'break-keep min-w-[360px] max-w-m px-4 py-4 bg-gray-900 rounded-t-lg',
+          'break-keep max-w-m px-4 py-4 bg-gray-900 rounded-t-lg',
         )}
       >
         <div className="flex items-start justify-between gap-2 pb-4 border-b border-b-gray-500">
@@ -56,7 +56,7 @@ const EmojiPicker = ({ className }: EmojiPickerProps) => {
             <span className="text-subtitle1">
               {currentSong} 음악에 어울리는 이모지는?
             </span>
-            <span className="text-body3">
+            <span className="text-caption">
               아래 이모지 중 노래를 대표할 이모지 1개를 선택하세요!
             </span>
           </div>
