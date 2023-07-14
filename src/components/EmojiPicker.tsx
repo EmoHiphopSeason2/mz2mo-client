@@ -48,7 +48,7 @@ const EmojiPicker = ({ className }: EmojiPickerProps) => {
       <div
         className={clsx(
           className,
-          'break-keep max-w-md px-4 py-4 bg-gray-900 rounded-t-lg',
+          'break-keep min-w-[360px] max-w-m px-4 py-4 bg-gray-900 rounded-t-lg',
         )}
       >
         <div className="flex items-start justify-between gap-2 pb-4 border-b border-b-gray-500">
