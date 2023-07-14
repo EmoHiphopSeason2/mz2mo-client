@@ -2,6 +2,7 @@ import { atom } from 'jotai';
 
 import youtubeControllerAtom from '@/stores/youtube-controller/stores';
 import {
+  UpdateLoopStateType,
   UpdatePlayerInstanceType,
   UpdatePlayingStateType,
   UpdatePlaylistActionType,
@@ -146,14 +147,18 @@ export const controlPlayingStateAtom = atom(
   (get) => get(youtubeControllerAtom).isPlaying,
   (get, set, update: UpdatePlayingStateType) => {
     const prevAtom = get(youtubeControllerAtom);
+    const playListSongAmount = prevAtom.playList.length;
+
     switch (update.action) {
       case 'start':
+        if (!playListSongAmount) return;
         set(youtubeControllerAtom, { ...prevAtom, isPlaying: true });
         break;
       case 'stop':
         set(youtubeControllerAtom, { ...prevAtom, isPlaying: false });
         break;
       case 'toggle':
+        if (!prevAtom.isPlaying && !playListSongAmount) return;
         set(youtubeControllerAtom, {
           ...prevAtom,
           isPlaying: !prevAtom.isPlaying,
@@ -162,5 +167,17 @@ export const controlPlayingStateAtom = atom(
       default:
         set(youtubeControllerAtom, prevAtom);
     }
+  },
+);
+
+/**
+ * 현재 플레이어의 반복 재생 여부를 조정하는 derivedAtom (controlLoopStateAtom)
+ * 재생, 정지, 전환 세 가지 케이스로 나누어 각각의 타입을 적용할 수 있음.
+ */
+export const controlLoopStateAtom = atom(
+  (get) => get(youtubeControllerAtom).loopState,
+  (get, set, update: UpdateLoopStateType) => {
+    const prevAtom = get(youtubeControllerAtom);
+    set(youtubeControllerAtom, { ...prevAtom, loopState: update.action });
   },
 );

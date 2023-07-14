@@ -1,14 +1,13 @@
 'use client';
 
 import { createContext, useContext, useState } from 'react';
-import type { PropsWithChildren, ReactNode } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import { createPortal } from 'react-dom';
 
-interface PortalProviderProps {
-  children: ReactNode;
+type PortalProviderProps = PropsWithChildren & {
   portalName?: string | undefined;
-}
+};
 
 const PortalContext = createContext<Map<string, HTMLDivElement | null>>(
   new Map([]),
