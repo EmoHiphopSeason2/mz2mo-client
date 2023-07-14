@@ -57,12 +57,12 @@ const PlayingPage = () => {
       {isEmojiPickerOpen ? (
         <EmojiPicker className="fixed bottom-0 -translate-x-1/2 left-1/2" />
       ) : (
-        <div className="fixed bottom-0 left-1/2 -translate-x-1/2 min-w-[320px] max-w-[440px] bg-gray-900 rounded-t-lg px-4 py-[22px] flex gap-1 justify-between">
-          <div className="flex flex-col overflow-hidden">
-            <h4 className="overflow-hidden text-white text-h4 whitespace-nowrap text-ellipsis">
+        <div className="fixed bottom-0 justify-between items-center flex gap-2 p-4 max-w-[440px] -translate-x-1/2 bg-gray-900 rounded-t-lg left-1/2">
+          <div className="flex flex-col whitespace-nowrap">
+            <h4 className="text-white text-subtitle1">
               이 음악에 어울리는 이모지는?
             </h4>
-            <p className="overflow-hidden text-white text-body3 whitespace-nowrap text-ellipsis">
+            <p className="text-white text-caption">
               지금 듣고있는 음악을 표현할 이모지에 투표하세요!
             </p>
           </div>
