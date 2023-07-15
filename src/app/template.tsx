@@ -7,12 +7,10 @@ export default function Template({ children }: { children: React.ReactNode }) {
   return (
     <>
       {children}
-      <AppPortal.Provider portalName="player-portal">
-        <AppPortal.Provider portalName="emoji-picker-portal">
-          <AppPortal.Provider portalName="toast-portal">
-            <ToastProvider />
-          </AppPortal.Provider>
-        </AppPortal.Provider>
+      <AppPortal.Provider portalName="player-portal" />
+      <AppPortal.Provider portalName="emoji-picker-portal" />
+      <AppPortal.Provider portalName="toast-portal">
+        <ToastProvider />
       </AppPortal.Provider>
     </>
   );
