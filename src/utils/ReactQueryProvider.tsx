@@ -12,6 +12,7 @@ export default function ReactQueryProvider({ children }: PropsWithChildren) {
         defaultOptions: {
           queries: {
             refetchOnWindowFocus: false,
+            useErrorBoundary: true,
             retry: 0,
           },
         },
