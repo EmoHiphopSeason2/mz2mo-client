@@ -93,10 +93,12 @@ const VinylRecordList = () => {
             viewBox="0 0 360 360"
             fill="transparent"
           >
-            <linearGradient id="mz02" gradientTransform="135">
-              <stop offset="0%" stopColor="#1853FF" />
-              <stop offset="100%" stopColor="#18FF59" />
-            </linearGradient>
+            <defs>
+              <linearGradient id="mz02" gradientTransform="rotate(135)">
+                <stop offset="0%" stopColor="#1853FF" />
+                <stop offset="100%" stopColor="#18FF59" />
+              </linearGradient>
+            </defs>
             <circle
               ref={circleProgressRef}
               className="mr-auto"
