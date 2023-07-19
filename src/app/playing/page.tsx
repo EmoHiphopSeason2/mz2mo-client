@@ -12,8 +12,8 @@ import PreviousButton from '@/components/header/PreviousButton';
 import EmojiVoteList from '@/domains/playing/emoji-list';
 import PlayController from '@/domains/playing/play-controller';
 import VinylRecordList from '@/domains/playing/vinyl-record';
+import { useToast } from '@/hooks/useToast';
 import { controlOpenEmojiPickerAtom } from '@/stores/emoji-picker';
-import { useToastAtom } from '@/stores/toast';
 
 const YoutubePlayer = dynamic(
   () => import('@/components/youtube-player/YoutubePlayer'),
@@ -23,7 +23,7 @@ const YoutubePlayer = dynamic(
 );
 
 const PlayingPage = () => {
-  const addToast = useSetAtom(useToastAtom);
+  const { toast } = useToast();
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useAtom(
     controlOpenEmojiPickerAtom,
   );
@@ -34,7 +34,7 @@ const PlayingPage = () => {
 
   // NOTE: 임시 토스트 테스트용
   const toastTest = () => {
-    addToast('success')('title', 'message');
+    toast.success({ title: 'temp title', message: 'temp message' });
   };
 
   return (
