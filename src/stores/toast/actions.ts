@@ -5,21 +5,22 @@ import { ToastType } from '@/types/atom';
 
 export const useToastAtom = atom(
   (get) => get(toasterAtom).toasts,
-  (get, set, type: ToastType) => (title: string, message: string) => {
-    const prevAtom = get(toasterAtom);
-    set(toasterAtom, {
-      toasts: [
-        {
-          type,
-          title,
-          message,
-          id: prevAtom.sequence.toString(),
-        },
-        ...prevAtom.toasts,
-      ],
-      sequence: prevAtom.sequence + 1,
-    });
-  },
+  (get, set, type: ToastType) =>
+    ({ title, message }: { title: string; message: string }) => {
+      const prevAtom = get(toasterAtom);
+      set(toasterAtom, {
+        toasts: [
+          {
+            type,
+            title,
+            message,
+            id: prevAtom.sequence.toString(),
+          },
+          ...prevAtom.toasts,
+        ],
+        sequence: prevAtom.sequence + 1,
+      });
+    },
 );
 
 export const removeToastAtom = atom(
