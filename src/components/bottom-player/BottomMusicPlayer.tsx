@@ -9,7 +9,7 @@ import ControlNextIcon from '@/assets/icons/controlNext.svg';
 import ControlPauseIcon from '@/assets/icons/controlPause.svg';
 import ControlPlayIcon from '@/assets/icons/controlPlay.svg';
 import ControlPrevIcon from '@/assets/icons/controlPrev.svg';
-import PlayListIcon from '@/assets/icons/playlist.svg';
+import { PlaylistButton } from '@/components/playlist';
 import YoutubePlayer from '@/components/youtube-player';
 import {
   controlCurrentDurationAtom,
@@ -55,51 +55,50 @@ const BottomMusicPlayer = () => {
 
   return (
     <>
-      <section className="flex flex-col w-[100%] min-w-[360px] max-w-[480px] mx-auto fixed bottom-0 z-musicPlayer">
+      <section className="fixed bottom-0 z-musicPlayer mx-auto flex w-[100%] min-w-[360px] max-w-[480px] flex-col">
         <progress
           ref={progressRef}
           value={maxDuration - currentDuration}
           max={maxDuration}
-          className={clsx(styles.progress, 'w-[100%] h-[3px] rotate-180')}
+          className={clsx(styles.progress, 'h-[3px] w-[100%] rotate-180')}
           onClick={handleCurrentDuration}
         />
-        <div className="bg-gray-900 py-4 px-5 flex gap-[17px] h-20 items-center">
-          <div className="flex flex-col mr-auto flex-1 overflow-hidden">
+        <div className="flex h-20 items-center gap-[17px] bg-gray-900 px-5 py-4">
+          <div className="flex flex-col flex-1 mr-auto overflow-hidden">
             {playerInstance ? (
               <>
-                <h4 className="text-white whitespace-nowrap text-ellipsis overflow-hidden">
+                <h4 className="overflow-hidden text-white text-ellipsis whitespace-nowrap">
                   {'한 페이지가 될 수 있게 (Time of Our Life)'}
                 </h4>
-                <p className="text-body3 text-white whitespace-nowrap text-ellipsis overflow-hidden">
+                <p className="overflow-hidden text-white text-ellipsis whitespace-nowrap">
                   DAY6
                 </p>
               </>
             ) : null}
           </div>
-          <div className="flex gap-8 items-center">
-            <div className="flex gap-[23px] items-center">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-5">
               <ControlPrevIcon
-                width={20}
-                height={20}
-                className="text-white my-auto"
+                width={18}
+                height={18}
+                className="my-auto text-white cursor-pointer"
                 onClick={() => selectPlaylist('prev')}
               />
               <PlayingIcon
-                width={40}
-                height={40}
+                width={32}
+                height={32}
                 className="text-white cursor-pointer"
                 onClick={togglePlayingState}
               />
               <ControlNextIcon
-                width={20}
-                height={20}
-                className="text-white my-auto"
+                width={18}
+                height={18}
+                className="my-auto text-white cursor-pointer"
                 onClick={() => selectPlaylist('next')}
               />
             </div>
-            <PlayListIcon
-              width={40}
-              height={40}
+            <PlaylistButton
+              iconSize={32}
               className="text-white cursor-pointer"
             />
           </div>

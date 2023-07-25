@@ -2,13 +2,13 @@
 
 import dynamic from 'next/dynamic';
 
-import { useAtom, useSetAtom } from 'jotai';
+import { useAtom } from 'jotai';
 
 import EmojiPicker from '@/components/EmojiPicker';
 import BasicButton from '@/components/button/BasicButton';
 import Header from '@/components/header/Header';
-import MenuButton from '@/components/header/MenuButton';
 import PreviousButton from '@/components/header/PreviousButton';
+import { Playlist, PlaylistButton, usePlaylist } from '@/components/playlist';
 import EmojiVoteList from '@/domains/playing/emoji-list';
 import PlayController from '@/domains/playing/play-controller';
 import VinylRecordList from '@/domains/playing/vinyl-record';
@@ -24,6 +24,7 @@ const YoutubePlayer = dynamic(
 
 const PlayingPage = () => {
   const { toast } = useToast();
+  const { isOpenPlaylist } = usePlaylist();
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useAtom(
     controlOpenEmojiPickerAtom,
   );
@@ -37,6 +38,8 @@ const PlayingPage = () => {
     toast.success({ title: 'temp title', message: 'temp message' });
   };
 
+  const PlaylistComponent = isOpenPlaylist ? <Playlist /> : null;
+
   return (
     <>
       <Header
@@ -47,7 +50,7 @@ const PlayingPage = () => {
             <p className="text-white text-body3">NewJeans</p>
           </div>
         }
-        headerRight={<MenuButton onClick={() => {}} className="mb-auto" />}
+        headerRight={<PlaylistButton className="mb-auto" />}
       />
       <div className="flex flex-col py-2 my-auto">
         <VinylRecordList />
@@ -75,6 +78,7 @@ const PlayingPage = () => {
           </BasicButton>
         </div>
       )}
+      {PlaylistComponent}
       <YoutubePlayer />
     </>
   );
