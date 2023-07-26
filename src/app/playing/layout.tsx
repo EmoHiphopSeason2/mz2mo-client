@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react';
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
-    <main className="w-full min-w-[360px] max-w-[480px] h-screen flex flex-col bg-black drop-shadow-md m-auto overflow-hidden">
+    <main className="flex flex-col w-full h-screen overflow-hidden bg-black drop-shadow-md">
       {children}
     </main>
   );
