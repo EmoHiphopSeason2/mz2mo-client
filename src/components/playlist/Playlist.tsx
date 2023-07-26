@@ -3,12 +3,12 @@
 import Image from 'next/image';
 import React from 'react';
 
-import Close from '@/assets/icons/close.svg';
+import CloseIcon from '@/assets/icons/close.svg';
 import Menu from '@/assets/icons/menu.svg';
 import AppPortal from '@/components/app-portal';
 import BottomMusicPlayer from '@/components/bottom-player';
 import Header from '@/components/header/Header';
-import { usePlaylist } from '@/components/playlist/usePlaylist';
+import { usePlaylist } from '@/components/playlist/hooks/usePlaylist';
 
 // FIX: 현재 임시 데이터로 해놓은 상태. 추후 변경 필요
 const PLAYLIST = [
@@ -72,7 +72,7 @@ const Playlist = () => {
             headerLeft={<h1>Play List</h1>}
             headerRight={
               <button type="button" onClick={closePlaylist}>
-                <Close className="h-[24px] w-[24px] text-white" />
+                <CloseIcon className="h-[24px] w-[24px] text-white" />
               </button>
             }
           />
@@ -98,7 +98,7 @@ const Playlist = () => {
                   </span>
                 </div>
                 <div className="flex gap-2">
-                  <Close className="h-[20px] w-[20px] cursor-pointer text-gray-700 hover:text-white" />
+                  <CloseIcon className="h-[20px] w-[20px] cursor-pointer text-gray-700 hover:text-white" />
                   <Menu className="h-[20px] w-[20px] cursor-pointer text-gray-700 hover:text-white" />
                 </div>
               </li>

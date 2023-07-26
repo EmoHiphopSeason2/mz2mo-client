@@ -1,8 +1,7 @@
 import React from 'react';
 
 import PlaylistMenu from '@/assets/icons/playlistMenu.svg';
-
-import { usePlaylist } from '../playlist/usePlaylist';
+import { usePlaylist } from '@/components/playlist/hooks';
 
 interface PlaylistButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {

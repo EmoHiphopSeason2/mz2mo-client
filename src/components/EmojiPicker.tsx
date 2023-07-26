@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { useAtomValue, useSetAtom } from 'jotai';
 
-import Close from '@/assets/icons/close.svg';
+import CloseIcon from '@/assets/icons/close.svg';
 import AppPortal from '@/components/app-portal';
 import EmojiButton from '@/components/button/EmojiButton';
 import {
@@ -61,7 +61,7 @@ const EmojiPicker = ({ className }: EmojiPickerProps) => {
             </span>
           </div>
           <button onClick={handleCloseButton}>
-            <Close className="w-6 h-6" />
+            <CloseIcon className="w-6 h-6" />
           </button>
         </div>
         <div className="flex items-center justify-center w-full gap-2 pt-5 text-2xl">
