@@ -29,6 +29,7 @@ const PortalProvider = ({
   return (
     <PortalContext.Provider value={portalList}>
       <div
+        className="absolute top-0 left-0 w-full"
         id={portalName}
         ref={(element) => {
           if (element && !portalContainer) setPortalContainer(element);
