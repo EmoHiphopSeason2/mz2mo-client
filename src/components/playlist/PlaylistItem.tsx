@@ -1,0 +1,67 @@
+import Image from 'next/image';
+import React from 'react';
+
+import {
+  Reorder,
+  animate,
+  useDragControls,
+  useMotionValue,
+} from 'framer-motion';
+
+import CloseIcon from '@/assets/icons/close.svg';
+import MenuIcon from '@/assets/icons/menu.svg';
+
+// FIXME: 추후 playlist type 변경
+interface PlaylistItemProps {
+  item: {
+    id: number;
+    url: string;
+    title: string;
+    artist: string;
+  };
+}
+
+const PlaylistItem = ({ item }: PlaylistItemProps) => {
+  const controls = useDragControls();
+  const y = useMotionValue(0);
+
+  const onDragEnd = () => {
+    animate(y, 0); // 드래그가 끝날 때 원래 위치로 돌아가게 하기 위함
+  };
+
+  return (
+    <Reorder.Item
+      value={item}
+      dragListener={false}
+      dragControls={controls}
+      onDragEnd={onDragEnd}
+      style={{ y }}
+      className="flex items-center gap-[24px] px-5 py-3 hover:bg-gray-900"
+    >
+      <Image
+        className="rounded-full"
+        src={item.url}
+        alt={item.title}
+        width="50"
+        height="50"
+      />
+      <div className="flex flex-col flex-1 mr-auto overflow-hidden whitespace-nowrap">
+        <span className="overflow-hidden text-ellipsis text-subtitle1">
+          {item.title}
+        </span>
+        <span className="overflow-hidden text-ellipsis text-body3">
+          {item.artist}
+        </span>
+      </div>
+      <div className="flex gap-2">
+        <CloseIcon className="h-[20px] w-[20px] cursor-pointer text-gray-700 hover:text-white" />
+        <MenuIcon
+          className="h-[20px] w-[20px] cursor-pointer text-gray-700 hover:text-white"
+          onPointerDown={(e) => controls.start(e)}
+        />
+      </div>
+    </Reorder.Item>
+  );
+};
+
+export default PlaylistItem;
