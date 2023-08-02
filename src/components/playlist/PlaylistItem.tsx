@@ -29,6 +29,10 @@ const PlaylistItem = ({ item }: PlaylistItemProps) => {
     animate(y, 0); // 드래그가 끝날 때 원래 위치로 돌아가게 하기 위함
   };
 
+  const onPointerDown = (e: React.PointerEvent<SVGSVGElement>) => {
+    controls.start(e);
+  };
+
   return (
     <Reorder.Item
       value={item}
@@ -54,10 +58,10 @@ const PlaylistItem = ({ item }: PlaylistItemProps) => {
         </span>
       </div>
       <div className="flex gap-2">
-        <CloseIcon className="h-[20px] w-[20px] cursor-pointer text-gray-700 hover:text-white" />
+        <CloseIcon className="w-5 h-5 text-gray-700 cursor-pointer hover:text-white" />
         <MenuIcon
-          className="h-[20px] w-[20px] cursor-pointer text-gray-700 hover:text-white"
-          onPointerDown={(e) => controls.start(e)}
+          className="w-5 h-5 text-gray-700 cursor-pointer hover:text-white"
+          onPointerDown={onPointerDown}
         />
       </div>
     </Reorder.Item>
