@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 
 import SearchIcon from '@/assets/icons/search.svg';
+import VoteIcon from '@/assets/icons/vote.svg';
 import EmojiPicker from '@/components/EmojiPicker';
 import Header from '@/components/header/Header';
 import PreviousButton from '@/components/header/PreviousButton';
@@ -10,7 +11,6 @@ import { Playlist, PlaylistButton, usePlaylist } from '@/components/playlist';
 import PlayController from '@/domains/playing/play-controller';
 import VinylRecordList from '@/domains/playing/vinyl-record';
 import useDisclosure from '@/hooks/useDisclosure';
-import { useToast } from '@/hooks/useToast';
 import FormatUtil from '@/utils/format';
 
 const YoutubePlayer = dynamic(
@@ -50,16 +50,28 @@ const EMOJI_LIST = [
 ];
 
 const PlayingPage = () => {
-  const { toast } = useToast();
   const { isOpenPlaylist } = usePlaylist();
   const emojiPickerDisclosure = useDisclosure();
 
-  // NOTE: 임시 토스트 테스트용
-  const toastTest = () => {
-    toast.success({ title: 'temp title', message: 'temp message' });
-  };
-
   const PlaylistComponent = isOpenPlaylist ? <Playlist /> : null;
+  const isVoted = localStorage.getItem('hype boy'); // @fixme: 음악 제목으로 변경
+
+  // @note: local storage에 해당 음악에 대한 투표 기록이 있는지 확인
+  const emojiList = isVoted
+    ? EMOJI_LIST
+    : Array.from({ length: 5 }).map((_, index) => {
+        return {
+          id: index,
+          unicode: 'U+1F914',
+          count: null,
+        };
+      });
+
+  const handleEmojiButton = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    console.log(e.target);
+  };
 
   return (
     <>
@@ -80,7 +92,7 @@ const PlayingPage = () => {
           <h2 className="text-subtitle1">Hype boy</h2>
           <p className="mt-1">음악에 어울리는 이모지에 투표하세요!</p>
           <ol className="flex gap-1 mt-2">
-            {EMOJI_LIST.map((emoji) => (
+            {emojiList.map((emoji) => (
               <li
                 key={emoji.id}
                 className="flex flex-col items-center justify-center p-2.5 bg-gray-800 rounded"
@@ -89,15 +101,16 @@ const PlayingPage = () => {
                   {FormatUtil.formatUnicodeToEmoji(emoji.unicode)}
                 </span>
                 <span className="text-caption w-[23px] text-center">
-                  {emoji.count}
+                  {emoji.count ?? '?'}
                 </span>
               </li>
             ))}
             <button
               onClick={emojiPickerDisclosure.open}
-              className="flex items-center p-2.5 bg-gray-600 rounded cursor-pointer"
+              className="flex flex-col items-center justify-center p-2.5 bg-gray-600 rounded cursor-pointer text-caption"
             >
-              <SearchIcon />
+              {isVoted ? <SearchIcon /> : <VoteIcon />}
+              {isVoted ? '' : '투표'}
             </button>
           </ol>
         </div>
