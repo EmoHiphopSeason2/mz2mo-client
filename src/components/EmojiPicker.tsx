@@ -24,6 +24,8 @@ const EmojiPicker = ({ onClose, className }: EmojiPickerProps) => {
   ) => {
     // TODO: api 호출 및 투표 결과 모달
     !!e.currentTarget?.id && setIconId(e.currentTarget?.id);
+    // @ fixme: 현재 재생중인 음악 제목으로 변경
+    localStorage.setItem('hype boy', e.currentTarget.value);
   };
 
   return (
@@ -54,6 +56,7 @@ const EmojiPicker = ({ onClose, className }: EmojiPickerProps) => {
               isClicked={iconId === emoji.id}
               key={emoji.id}
               id={emoji.id}
+              value={emoji.unicode}
               type="button"
             >
               {FormatUtil.formatUnicodeToEmoji(emoji.unicode)}
