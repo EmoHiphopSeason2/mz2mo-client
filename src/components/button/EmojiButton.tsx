@@ -16,25 +16,20 @@ const EmojiButton = ({
   ...props
 }: EmojiButtonProps) => {
   return (
-    <button
-      className={clsx(
-        isClicked
-          ? 'bg-gradient-to-br from-[#1853FF] to-[#18FF59]'
-          : 'bg-transparent',
-        'transition-all duration-75 rounded-lg hover:bg-gray-900 p-[1px]',
-        className,
-      )}
-      {...props}
-    >
-      <div
+    <div className="flex justify-center w-full">
+      <button
         className={clsx(
-          isClicked ? 'bg-gray-900' : 'bg-transparent',
-          'w-full px-2.5 py-2 hover:bg-gray-900 rounded-lg',
+          isClicked
+            ? 'bg-gray-800 border-gray-600'
+            : 'border-gray-900 bg-transparent',
+          'transition-all  duration-75 rounded p-2 border text-2xl w-[50px] h-[50px] hover:border-gray-700',
+          className,
         )}
+        {...props}
       >
         {children}
-      </div>
-    </button>
+      </button>
+    </div>
   );
 };
 
