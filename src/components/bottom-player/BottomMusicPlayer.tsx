@@ -104,7 +104,6 @@ const BottomMusicPlayer = () => {
           </div>
         </div>
       </section>
-      <YoutubePlayer />
     </>
   );
 };
