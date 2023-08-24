@@ -10,7 +10,6 @@ import ControlPauseIcon from '@/assets/icons/controlPause.svg';
 import ControlPlayIcon from '@/assets/icons/controlPlay.svg';
 import ControlPrevIcon from '@/assets/icons/controlPrev.svg';
 import { PlaylistButton } from '@/components/playlist';
-import YoutubePlayer from '@/components/youtube-player';
 import {
   controlCurrentDurationAtom,
   controlCurrentPlayingAtom,
