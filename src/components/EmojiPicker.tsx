@@ -3,81 +3,67 @@
 import React, { useState } from 'react';
 
 import clsx from 'clsx';
-import { useAtomValue, useSetAtom } from 'jotai';
+import { motion } from 'framer-motion';
 
 import CloseIcon from '@/assets/icons/close.svg';
 import AppPortal from '@/components/app-portal';
 import EmojiButton from '@/components/button/EmojiButton';
-import {
-  controlEmojiPickerCurrentSongAtom,
-  controlOpenEmojiPickerAtom,
-} from '@/stores/emoji-picker/actions';
-
-// FIX: 서버로부터 emoji 불러오기
-const emojis = [
-  { id: 'rabbit', icon: '🐰' },
-  { id: 'lovely', icon: '🥰' },
-  { id: 'cupid', icon: '💘' },
-  { id: 'sleepy', icon: '😴' },
-  { id: 'curious', icon: '🤔' },
-  { id: 'sad', icon: '🥲' },
-];
+import { TEMP_EMOJI } from '@/emoji';
+import FormatUtil from '@/utils/format';
 
 interface EmojiPickerProps {
+  onClose: () => void;
   className?: React.ComponentProps<'div'>['className'];
 }
 
-const EmojiPicker = ({ className }: EmojiPickerProps) => {
+const EmojiPicker = ({ onClose, className }: EmojiPickerProps) => {
   const [iconId, setIconId] = useState<string | null>(); // FIXME: 투표한 이모지의 id로 설정, 없다면 null
-  const setIsOpen = useSetAtom(controlOpenEmojiPickerAtom);
-  const currentSong = useAtomValue(controlEmojiPickerCurrentSongAtom);
 
   const handleIconButton = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     // TODO: api 호출 및 투표 결과 모달
     !!e.currentTarget?.id && setIconId(e.currentTarget?.id);
-  };
-
-  const handleCloseButton = () => {
-    setIsOpen(false);
+    // @ fixme: 현재 재생중인 음악 제목으로 변경
+    localStorage.setItem('hype boy', e.currentTarget.value);
   };
 
   return (
     <AppPortal.Wrapper portalName="emoji-picker-portal">
-      <div
+      <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
         className={clsx(
           className,
-          'break-keep max-w-m px-4 py-4 bg-gray-900 rounded-t-lg',
+          'break-keep max-w-[480px] w-full px-4 py-6 bg-gray-900 rounded-t-lg',
         )}
       >
-        <div className="flex items-start justify-between gap-2 pb-4 border-b border-b-gray-500">
-          <div className="flex flex-col">
-            <span className="text-subtitle1">
-              {currentSong} 음악에 어울리는 이모지는?
-            </span>
-            <span className="text-caption">
-              아래 이모지 중 노래를 대표할 이모지 1개를 선택하세요!
-            </span>
+        <div className="flex flex-col items-center justify-between gap-1">
+          <div className="relative flex justify-center w-full">
+            <h2 className="text-subtitle1">이모지 투표</h2>
+            <button onClick={onClose} className="absolute right-0">
+              <CloseIcon className="w-6 h-6" />
+            </button>
           </div>
-          <button onClick={handleCloseButton}>
-            <CloseIcon className="w-6 h-6" />
-          </button>
+          <span className="text-caption">
+            이 음악에 어울리는 이모지에 투표하세요!
+          </span>
         </div>
-        <div className="flex items-center justify-center w-full gap-2 pt-5 text-2xl">
-          {emojis.map((emoji) => (
+        <div className="grid grid-cols-6 max-h-[200px] overflow-auto gap-1 mt-4">
+          {TEMP_EMOJI.map((emoji) => (
             <EmojiButton
               onClick={handleIconButton}
               isClicked={iconId === emoji.id}
               key={emoji.id}
               id={emoji.id}
+              value={emoji.unicode}
               type="button"
             >
-              {emoji.icon}
+              {FormatUtil.formatUnicodeToEmoji(emoji.unicode)}
             </EmojiButton>
           ))}
         </div>
-      </div>
+      </motion.div>
     </AppPortal.Wrapper>
   );
 };
