@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PlaylistMenu from '@/assets/icons/playlistMenu.svg';
+import PlaylistMenuIcon from '@/assets/icons/playlistMenu.svg';
 import { usePlaylist } from '@/components/playlist/hooks';
 
 interface PlaylistButtonProps
@@ -14,10 +14,15 @@ const PlaylistButton = ({
   iconSize = 28,
   ...props
 }: PlaylistButtonProps) => {
-  const { openPlaylist } = usePlaylist();
+  const { openPlaylist, isOpenPlaylist } = usePlaylist();
+  console.log(isOpenPlaylist);
   return (
     <button onClick={openPlaylist} className={className} {...props}>
-      <PlaylistMenu width={iconSize} height={iconSize} className="text-white" />
+      <PlaylistMenuIcon
+        width={iconSize}
+        height={iconSize}
+        className="text-white"
+      />
     </button>
   );
 };
