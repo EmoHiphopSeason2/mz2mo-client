@@ -7,7 +7,7 @@ import { Reorder } from 'framer-motion';
 import CloseIcon from '@/assets/icons/close.svg';
 import AppPortal from '@/components/app-portal';
 import BottomMusicPlayer from '@/components/bottom-player';
-import Header from '@/components/header/Header';
+import { Header } from '@/components/header';
 import PlaylistItem from '@/components/playlist/PlaylistItem';
 import { usePlaylist } from '@/components/playlist/hooks/usePlaylist';
 
