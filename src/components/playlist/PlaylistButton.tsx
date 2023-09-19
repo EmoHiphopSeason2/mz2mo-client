@@ -14,8 +14,8 @@ const PlaylistButton = ({
   iconSize = 28,
   ...props
 }: PlaylistButtonProps) => {
-  const { openPlaylist, isOpenPlaylist } = usePlaylist();
-  console.log(isOpenPlaylist);
+  const { openPlaylist } = usePlaylist();
+
   return (
     <button onClick={openPlaylist} className={className} {...props}>
       <PlaylistMenuIcon
