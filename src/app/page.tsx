@@ -1,9 +1,11 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 import clsx from 'clsx';
 
+import BottomMusicPlayer from '@/components/bottom-player';
 import { Header } from '@/components/header';
 import { Playlist, PlaylistButton, usePlaylist } from '@/components/playlist';
 
@@ -30,7 +32,8 @@ const MOST_VOTED_SONGS = [
 
 export default function Home() {
   const { isOpenPlaylist } = usePlaylist();
-  const PlaylistComponent = isOpenPlaylist ? <Playlist /> : null;
+
+  if (isOpenPlaylist) return <Playlist />;
 
   return (
     <div className="h-full bg-black">
@@ -38,7 +41,7 @@ export default function Home() {
         headerLeft="logo"
         headerRight={<PlaylistButton className="mb-auto" />}
       />
-      <div className="p-4">
+      <div className="px-4 pt-8 pb-28">
         <section className="flex flex-col gap-4 mb-10">
           <h2 className="text-subtitle1">투표수 많은 노래</h2>
           <ol>
@@ -73,18 +76,24 @@ export default function Home() {
                     <li>✨</li>
                   </ol>
                 </div>
-                <a className="absolute inline-block px-3 py-1 font-normal text-gray-300 border border-gray-300 rounded-full bottom-4 right-4 text-caption">
+                <Link
+                  href="/"
+                  className="absolute inline-block px-3 py-1 font-normal text-gray-300 border border-gray-300 rounded-full bottom-4 right-4 text-caption"
+                >
                   투표하기
-                </a>
+                </Link>
               </li>
             ))}
           </ol>
         </section>
         <section>
           <h2 className="text-subtitle1">내가 들었던 노래</h2>
+          {Array.from({ length: 10 }).map((_, index) => (
+            <div key={index}>{index}</div>
+          ))}
         </section>
       </div>
-      {PlaylistComponent}
+      <BottomMusicPlayer />
     </div>
   );
 }
