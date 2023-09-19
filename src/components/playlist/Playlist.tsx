@@ -70,7 +70,7 @@ const Playlist = () => {
   return (
     <>
       <AppPortal.Wrapper portalName="modal-portal">
-        <div className="flex flex-col h-screen bg-black">
+        <div className="flex flex-col h-full min-h-screen pb-20 bg-black">
           <Header
             headerLeft={<h1>Play List</h1>}
             headerRight={
@@ -91,9 +91,7 @@ const Playlist = () => {
           </Reorder.Group>
         </div>
       </AppPortal.Wrapper>
-      <AppPortal.Wrapper portalName="modal-portal">
-        <BottomMusicPlayer />
-      </AppPortal.Wrapper>
+      <BottomMusicPlayer />
     </>
   );
 };
