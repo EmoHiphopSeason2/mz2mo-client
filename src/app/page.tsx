@@ -9,24 +9,52 @@ import BottomMusicPlayer from '@/components/bottom-player';
 import { Header } from '@/components/header';
 import { Playlist, PlaylistButton, usePlaylist } from '@/components/playlist';
 
+// @FIXME: 임시 데이터
 const MOST_VOTED_SONGS = [
   {
     id: 'MOST_VOTED_SONGS_1',
     url: 'https://via.placeholder.com/140',
     title: 'Hype Boys',
     artist: 'NewJeans',
+    emojis: ['👍', '❤️', '✨'],
   },
   {
     id: 'MOST_VOTED_SONGS_2',
     url: 'https://via.placeholder.com/70',
     title: '예뻤어 (여름날 우리 X 김민석 (멜로망스))',
     artist: '김민석 (멜로망스) 예뻤어 (여름날 우리 X 김민석 (멜로망스))2023',
+    emojis: ['🌈', '❤️'],
   },
   {
     id: 'MOST_VOTED_SONGS_3',
     url: 'https://via.placeholder.com/70',
     title: 'Super Shy',
     artist: 'NewJeans',
+    emojis: ['🔥', '😎', '✨'],
+  },
+];
+
+const HISTORY_SONGS = [
+  {
+    id: 'HISTORY_SONGS_1',
+    url: 'https://via.placeholder.com/80',
+    title: 'Make Up Make Up Make Up',
+    artist: 'Sam Kim',
+    emoji: '👍',
+  },
+  {
+    id: 'HISTORY_SONGS_2',
+    url: 'https://via.placeholder.com/80',
+    title: 'Love Me Like That',
+    artist: 'Sam Kim',
+    emoji: '👍',
+  },
+  {
+    id: 'HISTORY_SONGS_3',
+    url: 'https://via.placeholder.com/80',
+    title: 'Make Up',
+    artist: 'Sam Kim',
+    emoji: '',
   },
 ];
 
@@ -41,8 +69,8 @@ export default function Home() {
         headerLeft="logo"
         headerRight={<PlaylistButton className="mb-auto" />}
       />
-      <div className="px-4 pt-8 pb-28">
-        <section className="flex flex-col gap-4 mb-10">
+      <div className="pt-8 pb-28">
+        <section className="flex flex-col gap-4 px-4 mb-10">
           <h2 className="text-subtitle1">투표수 많은 노래</h2>
           <ol>
             {MOST_VOTED_SONGS.map((item, index) => (
@@ -71,9 +99,9 @@ export default function Home() {
                     {item.artist}
                   </span>
                   <ol className="flex gap-2 mt-2">
-                    <li>👍</li>
-                    <li>❤️</li>
-                    <li>✨</li>
+                    {item.emojis.map((emoji, index) => (
+                      <li key={index}>{emoji}</li>
+                    ))}
                   </ol>
                 </div>
                 <Link
@@ -86,11 +114,44 @@ export default function Home() {
             ))}
           </ol>
         </section>
-        <section>
-          <h2 className="text-subtitle1">내가 들었던 노래</h2>
-          {Array.from({ length: 10 }).map((_, index) => (
-            <div key={index}>{index}</div>
-          ))}
+        <section className="pl-4">
+          <div className="flex justify-between">
+            <h2 className="text-subtitle1">내가 들었던 노래</h2>
+            <Link href="/history" className="pr-4 text-gray-400 text-body3">
+              전체보기
+            </Link>
+          </div>
+          <ol className="flex gap-2 mt-4 overflow-auto">
+            {HISTORY_SONGS.map((item, index) => (
+              <li
+                className={clsx('flex gap-3 w-[306px] items-center')}
+                key={item.id}
+              >
+                <Image
+                  className={clsx('rounded-[4px] w-[80px] h-[80px]')}
+                  src={item.url}
+                  alt={item.title}
+                  width="80"
+                  height="80"
+                />
+                <div className="flex flex-col w-[300px] overflow-hidden whitespace-nowrap">
+                  <div className="overflow-hidden text-ellipsis">
+                    {`${item.emoji} ` ?? ''}
+                    {item.title}
+                  </div>
+                  <span className="w-full text-caption font-regular">
+                    {item.artist}
+                  </span>
+                  <Link
+                    href="/"
+                    className="px-3 mt-2.5 py-1 font-normal text-gray-300 border border-gray-300 rounded-full w-fit text-caption"
+                  >
+                    {item.emoji ? '재투표' : '투표하기'}
+                  </Link>
+                </div>
+              </li>
+            ))}
+          </ol>
         </section>
       </div>
       <BottomMusicPlayer />
