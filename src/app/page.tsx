@@ -124,7 +124,10 @@ export default function Home() {
           <ol className="flex gap-2 mt-4 overflow-auto">
             {HISTORY_SONGS.map((item, index) => (
               <li
-                className={clsx('flex gap-3 w-[306px] items-center')}
+                className={clsx(
+                  'flex gap-3 w-[306px] items-center',
+                  index === HISTORY_SONGS.length - 1 ? 'pr-4' : '',
+                )}
                 key={item.id}
               >
                 <Image
