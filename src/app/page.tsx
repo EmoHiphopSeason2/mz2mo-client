@@ -65,13 +65,13 @@ export default function Home() {
   if (isOpenPlaylist) return <Playlist />;
 
   return (
-    <div className="h-full bg-black">
+    <div className="flex flex-col h-full min-h-screen bg-black">
       <Header
         headerLeft="logo"
         headerRight={<PlaylistButton className="mb-auto" />}
       />
-      <div className="pt-8 pb-28">
-        <section className="flex flex-col gap-4 px-4 mb-10">
+      <div className="flex flex-col flex-1 gap-10 py-8">
+        <section className="flex flex-col gap-4 px-4">
           <h2 className="text-subtitle1">투표수 많은 노래</h2>
           <ol>
             {MOST_VOTED_SONGS.map((item, index) => (
@@ -118,7 +118,7 @@ export default function Home() {
         <section className="pl-4">
           <div className="flex justify-between">
             <h2 className="text-subtitle1">내가 들었던 노래</h2>
-            <Link href="/history" className="pr-4 text-gray-400 text-body3">
+            <Link href="/history" className="mr-4 text-gray-400 text-body3">
               전체보기
             </Link>
           </div>
@@ -128,6 +128,7 @@ export default function Home() {
                 key={item.id}
                 item={item}
                 isLastItem={index === HISTORY_SONGS.length - 1}
+                className="w-[306px] min-w-[306px] overflow-hidden"
               />
             ))}
           </ol>
