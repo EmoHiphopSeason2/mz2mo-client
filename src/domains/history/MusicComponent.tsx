@@ -13,7 +13,7 @@ interface MusicComponentProps {
     emoji?: string;
   };
   isLastItem: boolean;
-  className?: string;
+  className: string;
 }
 
 const MusicComponent = ({
@@ -24,7 +24,7 @@ const MusicComponent = ({
   return (
     <li
       className={clsx(
-        'flex gap-3 w-[306px] items-center',
+        'flex gap-3 items-center',
         isLastItem ? 'pr-4' : '',
         className,
       )}
@@ -37,12 +37,12 @@ const MusicComponent = ({
         width="80"
         height="80"
       />
-      <div className="flex flex-col w-[300px] overflow-hidden whitespace-nowrap">
+      <div className="flex flex-col w-full overflow-hidden whitespace-nowrap">
         <div className="overflow-hidden text-ellipsis">
           {`${item.emoji} ` ?? ''}
           {item.title}
         </div>
-        <span className="w-full text-caption font-regular">{item.artist}</span>
+        <span className="text-caption font-regular">{item.artist}</span>
         <Link
           href="/"
           className="px-3 mt-2.5 py-1 font-normal text-gray-300 border border-gray-300 rounded-full w-fit text-caption"
