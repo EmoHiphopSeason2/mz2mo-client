@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
-      <body className="relative m-auto h-screen min-w-[360px] max-w-[480px] bg-gray-500">
+      <body className="relative m-auto min-h-screen min-w-[360px] max-w-[480px] bg-gray-500">
         <ReactQueryProvider>
           <JotaiAtomProvider>{children}</JotaiAtomProvider>
         </ReactQueryProvider>
