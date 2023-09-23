@@ -8,7 +8,7 @@ interface HeaderProps {
 
 const Header = ({ headerLeft, headerCenter, headerRight }: HeaderProps) => {
   return (
-    <header className="flex items-center justify-between px-5 py-3 bg-black">
+    <header className="sticky top-0 flex items-center justify-between w-full px-5 py-3 bg-black z-header">
       {headerLeft}
       {headerCenter}
       {headerRight}

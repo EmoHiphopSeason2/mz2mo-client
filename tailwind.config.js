@@ -89,6 +89,7 @@ module.exports = {
         toast: 999,
         emojiPicker: 199,
         musicPlayer: 99,
+        header: 99,
       },
     },
   },

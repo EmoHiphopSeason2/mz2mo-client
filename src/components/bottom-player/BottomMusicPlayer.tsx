@@ -54,7 +54,7 @@ const BottomMusicPlayer = () => {
 
   return (
     <>
-      <section className="fixed bottom-0 z-musicPlayer mx-auto flex w-[100%] min-w-[360px] max-w-[480px] flex-col">
+      <section className="sticky bottom-0 z-musicPlayer mx-auto flex w-[100%] min-w-[360px] max-w-[480px] flex-col">
         <progress
           ref={progressRef}
           value={maxDuration - currentDuration}

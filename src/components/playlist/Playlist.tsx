@@ -68,31 +68,29 @@ const Playlist = () => {
   const { closePlaylist } = usePlaylist();
 
   return (
-    <>
-      <AppPortal.Wrapper portalName="modal-portal">
-        <div className="flex flex-col h-full min-h-screen pb-20 bg-black">
-          <Header
-            headerLeft={<h1>Play List</h1>}
-            headerRight={
-              <button type="button" onClick={closePlaylist}>
-                <CloseIcon className="h-[24px] w-[24px] text-white" />
-              </button>
-            }
-          />
-          <Reorder.Group
-            values={playlist}
-            onReorder={setPlaylist}
-            axis="y"
-            className="flex flex-col gap-2 overflow-auto"
-          >
-            {playlist.map((item) => (
-              <PlaylistItem key={item.id} item={item} />
-            ))}
-          </Reorder.Group>
-        </div>
-      </AppPortal.Wrapper>
+    <AppPortal.Wrapper portalName="modal-portal">
+      <div className="flex flex-col h-full min-h-screen bg-black">
+        <Header
+          headerLeft={<h1>Play List</h1>}
+          headerRight={
+            <button type="button" onClick={closePlaylist}>
+              <CloseIcon className="h-[24px] w-[24px] text-white" />
+            </button>
+          }
+        />
+        <Reorder.Group
+          values={playlist}
+          onReorder={setPlaylist}
+          axis="y"
+          className="flex flex-col gap-2 overflow-auto"
+        >
+          {playlist.map((item) => (
+            <PlaylistItem key={item.id} item={item} />
+          ))}
+        </Reorder.Group>
+      </div>
       <BottomMusicPlayer />
-    </>
+    </AppPortal.Wrapper>
   );
 };
 
