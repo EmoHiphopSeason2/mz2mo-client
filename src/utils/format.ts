@@ -16,6 +16,10 @@ class FormatUtil {
       .slice(0, maxLength + 1)
       .concat(text.length > maxLength ? '...' : '');
   }
+
+  static formatUnicodeToEmoji(unicode: string) {
+    return String.fromCodePoint(parseInt(unicode.replace('U+', ''), 16));
+  }
 }
 
 export default FormatUtil;

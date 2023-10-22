@@ -1,14 +1,15 @@
 'use client';
 
-import Image from 'next/image';
-import React from 'react';
+import { useState } from 'react';
 
-import Close from '@/assets/icons/close.svg';
-import Menu from '@/assets/icons/menu.svg';
+import { Reorder } from 'framer-motion';
+
+import CloseIcon from '@/assets/icons/close.svg';
 import AppPortal from '@/components/app-portal';
 import BottomMusicPlayer from '@/components/bottom-player';
-import Header from '@/components/header/Header';
-import { usePlaylist } from '@/components/playlist/usePlaylist';
+import { Header } from '@/components/header';
+import PlaylistItem from '@/components/playlist/PlaylistItem';
+import { usePlaylist } from '@/components/playlist/hooks/usePlaylist';
 
 // FIX: 현재 임시 데이터로 해놓은 상태. 추후 변경 필요
 const PLAYLIST = [
@@ -63,53 +64,33 @@ const PLAYLIST = [
 ];
 
 const Playlist = () => {
+  const [playlist, setPlaylist] = useState(PLAYLIST);
   const { closePlaylist } = usePlaylist();
+
   return (
-    <>
-      <AppPortal.Wrapper portalName="modal-portal">
-        <div className="flex flex-col h-screen bg-black">
-          <Header
-            headerLeft={<h1>Play List</h1>}
-            headerRight={
-              <button type="button" onClick={closePlaylist}>
-                <Close className="h-[24px] w-[24px] text-white" />
-              </button>
-            }
-          />
-          <ul className="overflow-auto">
-            {PLAYLIST.map((item) => (
-              <li
-                key={item.id}
-                className="flex items-center gap-[24px] px-5 py-4 hover:bg-gray-900"
-              >
-                <Image
-                  className="rounded-full"
-                  src={item.url}
-                  alt={item.title}
-                  width="50"
-                  height="50"
-                />
-                <div className="flex flex-col flex-1 mr-auto overflow-hidden whitespace-nowrap">
-                  <span className="overflow-hidden text-ellipsis text-subtitle1">
-                    {item.title}
-                  </span>
-                  <span className="overflow-hidden text-ellipsis text-body3">
-                    {item.artist}
-                  </span>
-                </div>
-                <div className="flex gap-2">
-                  <Close className="h-[20px] w-[20px] cursor-pointer text-gray-700 hover:text-white" />
-                  <Menu className="h-[20px] w-[20px] cursor-pointer text-gray-700 hover:text-white" />
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </AppPortal.Wrapper>
-      <AppPortal.Wrapper portalName="modal-portal">
-        <BottomMusicPlayer />
-      </AppPortal.Wrapper>
-    </>
+    <AppPortal.Wrapper portalName="modal-portal">
+      <div className="flex flex-col h-full min-h-screen bg-black">
+        <Header
+          headerLeft={<h1>Play List</h1>}
+          headerRight={
+            <button type="button" onClick={closePlaylist}>
+              <CloseIcon className="h-[24px] w-[24px] text-white" />
+            </button>
+          }
+        />
+        <Reorder.Group
+          values={playlist}
+          onReorder={setPlaylist}
+          axis="y"
+          className="flex flex-col gap-2 overflow-auto"
+        >
+          {playlist.map((item) => (
+            <PlaylistItem key={item.id} item={item} />
+          ))}
+        </Reorder.Group>
+      </div>
+      <BottomMusicPlayer />
+    </AppPortal.Wrapper>
   );
 };
 
