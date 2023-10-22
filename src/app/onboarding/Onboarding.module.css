@@ -1,0 +1,14 @@
+.scrollText { 
+    width: 100%;
+    animation: scrolling-left 3s linear infinite; 
+    overflow: hidden; 
+} 
+ 
+@keyframes scrolling-left { 
+  0% { 
+    transform: translateX(var(--right-side)); 
+  } 
+  100% { 
+    transform: translateX(var(--left-side)); 
+  } 
+} 
