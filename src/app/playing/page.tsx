@@ -66,14 +66,6 @@ const PlayingPage = () => {
         };
       });
 
-  const handleEmojiButton = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
-    console.log(e.target);
-  };
-
-  const PlaylistComponent = isOpenPlaylist ? <Playlist /> : null;
-
   return (
     <>
       <Header

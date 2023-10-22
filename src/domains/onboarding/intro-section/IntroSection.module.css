@@ -1,6 +1,6 @@
 .scrollText { 
     width: 100%;
-    animation: scrolling-left 3s linear infinite; 
+    animation: scrolling-left 4s linear infinite; 
     overflow: hidden; 
 } 
  
