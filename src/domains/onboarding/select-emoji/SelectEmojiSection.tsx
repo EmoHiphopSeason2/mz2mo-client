@@ -2,20 +2,30 @@ import { useRef, useState } from 'react';
 
 import clsx from 'clsx';
 
+import { useToast } from '@/hooks/useToast';
+
 import * as styles from './IntroSection.module.css';
 
 const EMOJI_LIST = ['😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣'];
 
 const SelectEmojiSection = () => {
   const [selectedEmojis, setSelectedEmojis] = useState<string[]>(['😀', '😁']);
+  const { toast } = useToast();
 
   const handleClickEmoji = (clickedEmoji: string) => {
-    selectedEmojis.includes(clickedEmoji)
-      ? setSelectedEmojis(
-          [...selectedEmojis].filter((emoji) => emoji !== clickedEmoji),
-        )
-      : selectedEmojis.length < 3 &&
-        setSelectedEmojis([...selectedEmojis, clickedEmoji]);
+    if (selectedEmojis.includes(clickedEmoji)) {
+      setSelectedEmojis(
+        [...selectedEmojis].filter((emoji) => emoji !== clickedEmoji),
+      );
+      return;
+    }
+
+    selectedEmojis.length < 3
+      ? setSelectedEmojis([...selectedEmojis, clickedEmoji])
+      : toast.error({
+          title: '이모지를 선택할 수 없어요!',
+          message: '이모지는 총 3개까지만 선택할 수 있습니다.',
+        });
   };
 
   return (
