@@ -8,7 +8,7 @@ const EMOJI_LIST = ['😀', '😃', '😄', '😁', '😆', '😅', '😂', '�
 
 const SelectEmojiSection = () => {
   const textBoxRef = useRef<HTMLDivElement | null>(null);
-  const [selectedEmojis, setSelectedEmojis] = useState<string[]>(['🎹']);
+  const [selectedEmojis, setSelectedEmojis] = useState<string[]>(['😀', '😁']);
 
   return (
     <>
@@ -35,9 +35,40 @@ const SelectEmojiSection = () => {
       </div>
       <div className="py-1.5 mx-4 grid grid-cols-3 gap-x-2 gap-y-2.5">
         {EMOJI_LIST.map((emoji) => (
-          <div key={emoji} className="max-w-full aspect-square p-[30px] text-[40px] rounded-full bg-gray-800">
-            {emoji}
-          </div>
+          <svg
+            key={emoji}
+            className="max-w-full aspect-square rounded-full"
+            viewBox="0 0 360 360"
+          >
+            <defs>
+              <linearGradient id="mz02" gradientTransform="rotate(135)">
+                <stop offset="0%" stopColor="#1853FF" />
+                <stop offset="100%" stopColor="#18FF59" />
+              </linearGradient>
+            </defs>
+            <circle
+              className={clsx(
+                selectedEmojis.includes(emoji) ? 'fill-gray-900' : 'fill-transparent',
+                'mr-auto hover:fill-gray-900',
+              )}
+              stroke={
+                selectedEmojis.includes(emoji) ? 'url(#mz02)' : 'bg-gray-800'
+              }
+              cx="50%"
+              cy="50%"
+              r="50%"
+              strokeWidth="8"
+            />
+            <text
+              x="50%"
+              y="50%"
+              dominant-baseline="middle"
+              text-anchor="middle"
+              font-size={40}
+            >
+              {emoji}
+            </text>
+          </svg>
         ))}
       </div>
     </>
