@@ -7,8 +7,16 @@ import * as styles from './IntroSection.module.css';
 const EMOJI_LIST = ['😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣'];
 
 const SelectEmojiSection = () => {
-  const textBoxRef = useRef<HTMLDivElement | null>(null);
   const [selectedEmojis, setSelectedEmojis] = useState<string[]>(['😀', '😁']);
+
+  const handleClickEmoji = (clickedEmoji: string) => {
+    selectedEmojis.includes(clickedEmoji)
+      ? setSelectedEmojis(
+          [...selectedEmojis].filter((emoji) => emoji !== clickedEmoji),
+        )
+      : selectedEmojis.length < 3 &&
+        setSelectedEmojis([...selectedEmojis, clickedEmoji]);
+  };
 
   return (
     <>
@@ -39,6 +47,7 @@ const SelectEmojiSection = () => {
             key={emoji}
             className="max-w-full aspect-square rounded-full"
             viewBox="0 0 360 360"
+            onClick={() => handleClickEmoji(emoji)}
           >
             <defs>
               <linearGradient id="mz02" gradientTransform="rotate(135)">
@@ -48,7 +57,9 @@ const SelectEmojiSection = () => {
             </defs>
             <circle
               className={clsx(
-                selectedEmojis.includes(emoji) ? 'fill-gray-900' : 'fill-transparent',
+                selectedEmojis.includes(emoji)
+                  ? 'fill-gray-900'
+                  : 'fill-transparent',
                 'mr-auto hover:fill-gray-900',
               )}
               stroke={
