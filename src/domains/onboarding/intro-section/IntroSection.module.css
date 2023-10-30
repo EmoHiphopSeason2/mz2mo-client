@@ -1,6 +1,6 @@
 .scrollText { 
     width: 100%;
-    animation: scrolling-left 3s cubic-bezier(0,.4,1,.41) infinite; 
+    animation: scrolling-left 3s cubic-bezier(0, 0.4, 1, 0.41) infinite; 
     overflow: hidden; 
 } 
  

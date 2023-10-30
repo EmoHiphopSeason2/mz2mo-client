@@ -4,12 +4,57 @@ import clsx from 'clsx';
 
 import { useToast } from '@/hooks/useToast';
 
-import * as styles from './IntroSection.module.css';
-
-const EMOJI_LIST = ['😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣'];
+const EMOJI_LIST = [
+  '⌚️',
+  '📱',
+  '📲',
+  '💻',
+  '⌨️',
+  '🖥',
+  '🖨',
+  '🖱',
+  '🖲',
+  '🕹',
+  '🗜',
+  '💽',
+  '💾',
+  '💿',
+  '📀',
+  '📼',
+  '📷',
+  '📸',
+  '📹',
+  '🎥',
+  '📽',
+  '🎞',
+  '📞',
+  '☎️',
+  '📟',
+  '📠',
+  '📺',
+  '📻',
+  '🎙',
+  '🎚',
+  '🎛',
+  '🧭',
+  '⏱',
+  '⏲',
+  '⏰',
+  '🕰',
+  '⌛️',
+  '⏳',
+  '📡',
+  '🔋',
+  '🪫',
+  '🔌',
+  '💡',
+  '🔦',
+  '🕯',
+];
 
 const SelectEmojiSection = () => {
-  const [selectedEmojis, setSelectedEmojis] = useState<string[]>(['😀', '😁']);
+  const [selectedEmojis, setSelectedEmojis] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState(0);
   const { toast } = useToast();
 
   const handleClickEmoji = (clickedEmoji: string) => {
@@ -26,6 +71,12 @@ const SelectEmojiSection = () => {
           title: '이모지를 선택할 수 없어요!',
           message: '이모지는 총 3개까지만 선택할 수 있습니다.',
         });
+  };
+
+  const handleEmojiPage = (changed: number) => {
+    const nextPage = currentPage + changed;
+    if (nextPage < 0 || nextPage > Math.floor(EMOJI_LIST.length / 9)) return;
+    setCurrentPage(nextPage);
   };
 
   return (
@@ -45,52 +96,55 @@ const SelectEmojiSection = () => {
                 !selectedEmojis[index] && 'bg-gray-800',
                 'w-6 h-6 rounded-full text-center',
               )}
+              onClick={() => handleClickEmoji(selectedEmojis[index] ?? '')}
             >
               {selectedEmojis[index] ?? ''}
             </div>
           ))}
         </div>
       </div>
-      <div className="py-1.5 mx-4 grid grid-cols-3 gap-x-2 gap-y-2.5">
-        {EMOJI_LIST.map((emoji) => (
-          <svg
-            key={emoji}
-            className="max-w-full aspect-square rounded-full"
-            viewBox="0 0 360 360"
-            onClick={() => handleClickEmoji(emoji)}
-          >
-            <defs>
-              <linearGradient id="mz02" gradientTransform="rotate(135)">
-                <stop offset="0%" stopColor="#1853FF" />
-                <stop offset="100%" stopColor="#18FF59" />
-              </linearGradient>
-            </defs>
-            <circle
-              className={clsx(
-                selectedEmojis.includes(emoji)
-                  ? 'fill-gray-900'
-                  : 'fill-transparent',
-                'mr-auto hover:fill-gray-900',
-              )}
-              stroke={
-                selectedEmojis.includes(emoji) ? 'url(#mz02)' : 'bg-gray-800'
-              }
-              cx="50%"
-              cy="50%"
-              r="50%"
-              strokeWidth="8"
-            />
-            <text
-              x="50%"
-              y="50%"
-              dominant-baseline="middle"
-              text-anchor="middle"
-              font-size={40}
+      <div className="py-1.5 mx-4 overflow-scroll aspect-square">
+        <div className="py-1.5 mx-4 grid grid-cols-3 gap-x-2 gap-y-2.5">
+          {EMOJI_LIST.map((emoji) => (
+            <svg
+              key={emoji}
+              className="max-w-full aspect-square rounded-full"
+              viewBox="0 0 360 360"
+              onClick={() => handleClickEmoji(emoji)}
             >
-              {emoji}
-            </text>
-          </svg>
-        ))}
+              <defs>
+                <linearGradient id="mz02" gradientTransform="rotate(135)">
+                  <stop offset="0%" stopColor="#1853FF" />
+                  <stop offset="100%" stopColor="#18FF59" />
+                </linearGradient>
+              </defs>
+              <circle
+                className={clsx(
+                  selectedEmojis.includes(emoji)
+                    ? 'fill-gray-900'
+                    : 'fill-transparent',
+                  'mr-auto hover:fill-gray-900',
+                )}
+                stroke={
+                  selectedEmojis.includes(emoji) ? 'url(#mz02)' : 'bg-gray-800'
+                }
+                cx="50%"
+                cy="50%"
+                r="50%"
+                strokeWidth="8"
+              />
+              <text
+                x="50%"
+                y="50%"
+                dominant-baseline="middle"
+                text-anchor="middle"
+                font-size={40}
+              >
+                {emoji}
+              </text>
+            </svg>
+          ))}
+        </div>
       </div>
     </>
   );
