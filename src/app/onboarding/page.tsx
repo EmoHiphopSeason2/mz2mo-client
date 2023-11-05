@@ -22,7 +22,7 @@ const ONBOARDING_CONTENTS = {
     content: <SelectEmojiSection />,
     bottom: (
       <LongButton hasArrow>
-        <p className="text-subtitle1">체험해보기</p>
+        <p className="text-subtitle1">이렇게 할래요</p>
       </LongButton>
     ),
   },

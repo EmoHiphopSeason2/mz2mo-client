@@ -103,8 +103,8 @@ const SelectEmojiSection = () => {
           ))}
         </div>
       </div>
-      <div className="py-1.5 mx-4 overflow-scroll aspect-square">
-        <div className="py-1.5 mx-4 grid grid-cols-3 gap-x-2 gap-y-2.5">
+      <div className="py-1.5 mx-4 overflow-auto aspect-square">
+        <div className="grid grid-cols-3 gap-x-2 gap-y-2.5 scroll-smooth">
           {EMOJI_LIST.map((emoji) => (
             <svg
               key={emoji}

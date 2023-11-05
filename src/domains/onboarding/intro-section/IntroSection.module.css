@@ -1,14 +1,53 @@
-.scrollText { 
-    width: 100%;
-    animation: scrolling-left 3s cubic-bezier(0, 0.4, 1, 0.41) infinite; 
-    overflow: hidden; 
-} 
- 
-@keyframes scrolling-left { 
-  0% { 
-    transform: translateX(var(--right-side)); 
-  } 
-  100% { 
-    transform: translateX(var(--left-side)); 
-  } 
-} 
+.scrollFromLeft {
+  animation: scrolling-left 10s linear infinite;
+}
+
+.scrollFromRight {
+  animation: scrolling-right 10s linear infinite;
+}
+
+.scrollFromLeft_duplicated {
+  animation: scrolling-left-duplicated 10s linear infinite;
+  animation-delay: 5s;
+}
+
+.scrollFromRight_duplicated {
+  animation: scrolling-right-duplicated 10s linear infinite;
+  animation-delay: 5s;
+}
+
+@keyframes scrolling-right {
+  from {
+    transform: translate3d(-100%, 0, 0);
+  }
+  to {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+@keyframes scrolling-right-duplicated {
+  from {
+    transform: translate3d(0%, 0, 0);
+  }
+  to {
+    transform: translate3d(200%, 0, 0);
+  }
+}
+
+@keyframes scrolling-left {
+  from {
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@keyframes scrolling-left-duplicated {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-200%, 0, 0);
+  }
+}
