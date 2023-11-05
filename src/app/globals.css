@@ -2,9 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://cdn.jsdelivr.net/gh/toss/tossface/dist/tossface.css');
+
 @layer base {
   :root {
-    font-family: var(--font-pretendard);
+    font-family: var(--font-pretendard), Tossface;
   }
 }
 
