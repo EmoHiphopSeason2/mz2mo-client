@@ -70,12 +70,14 @@ const IntroSection = () => {
       {INTRO_CONTENTS.map((rowContents, index) => (
         <div
           key={`row-${index}`}
-          className="flex gap-x-4 py-4 border-b border-b-white/30"
+          className="flex py-4 border-b border-b-white/30"
         >
           <div
             className={clsx(
-              index % 2 ? styles.scrollFromLeft : styles.scrollFromRight,
-              'flex items-center gap-4 whitespace-nowrap',
+              index % 2
+                ? styles.scrollFromLeft
+                : styles.scrollFromRight_duplicated,
+              'flex items-center px-2 gap-4 whitespace-nowrap',
             )}
           >
             {rowContents.map(({ type, content, color }) => (
@@ -94,8 +96,8 @@ const IntroSection = () => {
             className={clsx(
               index % 2
                 ? styles.scrollFromLeft_duplicated
-                : styles.scrollFromRight_duplicated,
-              'flex items-center gap-4 whitespace-nowrap',
+                : styles.scrollFromRight,
+              'flex items-center px-2 gap-4 whitespace-nowrap',
             )}
           >
             {rowContents.map(({ type, content, color }) => (

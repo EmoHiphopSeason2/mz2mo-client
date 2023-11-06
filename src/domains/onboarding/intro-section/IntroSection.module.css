@@ -1,53 +1,63 @@
 .scrollFromLeft {
-  animation: scrolling-left 10s linear infinite;
+  animation: 20s linear 0s infinite normal forwards running scrolling-left;
 }
 
 .scrollFromRight {
-  animation: scrolling-right 10s linear infinite;
+  animation: 20s linear 0s infinite normal forwards running scrolling-right;
 }
 
 .scrollFromLeft_duplicated {
-  animation: scrolling-left-duplicated 10s linear infinite;
-  animation-delay: 5s;
+  animation: 20s linear 0s infinite normal none running scrolling-left-duplicated;
 }
 
 .scrollFromRight_duplicated {
-  animation: scrolling-right-duplicated 10s linear infinite;
-  animation-delay: 5s;
+  animation: 20s linear 0s infinite normal none running scrolling-right-duplicated;
 }
 
 @keyframes scrolling-right {
-  from {
-    transform: translate3d(-100%, 0, 0);
+  0% {
+    transform: translateX(-100%);
   }
-  to {
-    transform: translate3d(100%, 0, 0);
+  50% {
+      transform: translateX(0);
+  }
+  50.01%{
+      transform: translateX(-200%);
+  }
+  100%{
+      transform: translateX(-100%);
   }
 }
 
 @keyframes scrolling-right-duplicated {
-  from {
-    transform: translate3d(0%, 0, 0);
+  0% {
+    transform: translateX(-100%);
   }
-  to {
-    transform: translate3d(200%, 0, 0);
+  100% {
+      transform: translateX(100%);
   }
 }
 
 @keyframes scrolling-left {
-  from {
-    transform: translate3d(100%, 0, 0);
+  0% {
+    transform: translateX(0);
   }
-  to {
-    transform: translate3d(-100%, 0, 0);
+  50% {
+      transform: translateX(-100%);
+  }
+  50.01%{
+      transform: translateX(100%);
+  }
+  100%{
+      transform: translateX(0);
   }
 }
 
 @keyframes scrolling-left-duplicated {
-  from {
-    transform: translate3d(0, 0, 0);
+  0% {
+      transform: translateX(0);
   }
-  to {
-    transform: translate3d(-200%, 0, 0);
+  100% {
+      transform: translateX(-200%);
   }
 }
