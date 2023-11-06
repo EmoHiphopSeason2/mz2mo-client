@@ -4,6 +4,8 @@ import clsx from 'clsx';
 
 import { useToast } from '@/hooks/useToast';
 
+import styles from './SelectEmojiSection.module.css';
+
 const EMOJI_LIST = [
   '⌚️',
   '📱',
@@ -53,6 +55,8 @@ const EMOJI_LIST = [
 ];
 
 const SelectEmojiSection = () => {
+  const selectBoxRef = useRef<HTMLDivElement | null>(null);
+
   const [selectedEmojis, setSelectedEmojis] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const { toast } = useToast();
@@ -75,9 +79,19 @@ const SelectEmojiSection = () => {
 
   const handleEmojiPage = (changed: number) => {
     const nextPage = currentPage + changed;
-    if (nextPage < 0 || nextPage > Math.floor(EMOJI_LIST.length / 9)) return;
+    if (nextPage < 0 || nextPage >= Math.floor(EMOJI_LIST.length / 9)) return;
     setCurrentPage(nextPage);
   };
+
+  const handleWheelEmoji = (event: React.WheelEvent<HTMLDivElement>) => {
+    const changed = event.nativeEvent.deltaY < 0 ? -1 : 1;
+    console.log(changed);
+    handleEmojiPage(changed);
+  };
+
+  const emojiSectionStyle = {
+    '--currentHeight': `-${currentPage * ((selectBoxRef.current?.offsetWidth || 448) + 16)}px`,
+  } as React.CSSProperties;
 
   return (
     <>
@@ -88,7 +102,7 @@ const SelectEmojiSection = () => {
             내 기분에 맞는 이모지 최대 3가지를 선택해주세요.
           </p>
         </div>
-        <div className="flex gap-2 p-2.5 my-auto bg-gray-900 border-gray-800 rounded-[100px]">
+        <div className="flex gap-2 p-2.5 my-auto bg-gray-900 border border-gray-800 rounded-[100px]">
           {Array.from({ length: 3 }, (_, index) => (
             <div
               key={index}
@@ -103,8 +117,18 @@ const SelectEmojiSection = () => {
           ))}
         </div>
       </div>
-      <div className="py-1.5 mx-4 overflow-auto aspect-square">
-        <div className="grid grid-cols-3 gap-x-2 gap-y-2.5 scroll-smooth">
+      <div
+        ref={selectBoxRef}
+        className="my-1.5 mx-4 overflow-hidden aspect-square"
+        onWheel={handleWheelEmoji}
+      >
+        <div
+          style={emojiSectionStyle}
+          className={clsx(
+            styles.scrollEmojiSection,
+            'grid grid-cols-3 gap-x-2 gap-y-2.5 scroll-smooth',
+          )}
+        >
           {EMOJI_LIST.map((emoji) => (
             <svg
               key={emoji}
@@ -138,7 +162,7 @@ const SelectEmojiSection = () => {
                 y="50%"
                 dominant-baseline="middle"
                 text-anchor="middle"
-                font-size={40}
+                font-size="530%"
               >
                 {emoji}
               </text>

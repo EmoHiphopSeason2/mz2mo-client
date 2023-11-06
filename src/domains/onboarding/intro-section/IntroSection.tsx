@@ -2,6 +2,8 @@ import { useRef } from 'react';
 
 import clsx from 'clsx';
 
+import LongButton from '@/components/button/LongButton';
+
 import * as styles from './IntroSection.module.css';
 
 const INTRO_CONTENTS = [
