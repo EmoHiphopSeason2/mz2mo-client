@@ -15,13 +15,17 @@ const LongButton = ({
   hasArrow = false,
   className,
   children,
+  disabled,
   ...props
 }: LongButtonConfig) => {
   return (
     <button
+      disabled={disabled}
       className={clsx(
         className,
-        'inline-flex transition-all w-full delay-75 items-center justify-center rounded-md bg-[#1853FF] px-4 py-2.5 text-white disabled:bg-gray-900 hover:bg-gradient-to-r hover:from-[#1853FF] hover:to-[#18FFFF]',
+        !disabled &&
+          'hover:bg-gradient-to-r hover:from-[#1853FF] hover:to-[#18FFFF]',
+        'inline-flex transition-all w-full delay-75 items-center justify-center rounded-md bg-[#1853FF] px-4 py-2.5 text-white disabled:bg-gray-900',
       )}
       {...props}
     >

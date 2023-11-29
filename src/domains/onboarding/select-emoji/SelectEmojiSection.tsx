@@ -1,7 +1,11 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 
 import clsx from 'clsx';
 
+import {
+  OnboardingContextAction,
+  OnboardingContextValue,
+} from '@/domains/onboarding/OnboardingContext';
 import { useToast } from '@/hooks/useToast';
 
 import styles from './SelectEmojiSection.module.css';
@@ -57,7 +61,9 @@ const EMOJI_LIST = [
 const SelectEmojiSection = () => {
   const selectBoxRef = useRef<HTMLDivElement | null>(null);
 
-  const [selectedEmojis, setSelectedEmojis] = useState<string[]>([]);
+  const { selectedEmojis } = useContext(OnboardingContextValue);
+  const { setSelectedEmojis } = useContext(OnboardingContextAction);
+
   const [currentPage, setCurrentPage] = useState(0);
   const { toast } = useToast();
 
@@ -90,7 +96,9 @@ const SelectEmojiSection = () => {
   };
 
   const emojiSectionStyle = {
-    '--currentHeight': `-${currentPage * ((selectBoxRef.current?.offsetWidth || 448) + 16)}px`,
+    '--currentHeight': `-${
+      currentPage * ((selectBoxRef.current?.offsetWidth || 448) + 16)
+    }px`,
   } as React.CSSProperties;
 
   return (
