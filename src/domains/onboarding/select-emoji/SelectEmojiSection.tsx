@@ -72,7 +72,12 @@ const SelectEmojiSection = () => {
    */
   const [currentEmojiPage, setCurrentEmojiPage] = useState(0);
   const MAX_PAGE = Math.floor(EMOJI_LIST.length / 9);
+  const MAX_SELECTED_EMOJI = 3;
   const EMOJI_SECTION_HEIGHT = selectBoxRef.current?.offsetHeight ?? 0;
+  const emojiItemVariant = {
+    selected: { scale: 1 },
+    hidden: { scale: 0 },
+  };
 
   /**
    * 이모지 선택과 관련한 state 및 setState 함수 정의
@@ -128,7 +133,7 @@ const SelectEmojiSection = () => {
           </p>
         </div>
         <div className="flex gap-2 p-2.5 my-auto bg-gray-900 border border-gray-800 rounded-[100px]">
-          {Array.from({ length: 3 }, (_, index) => (
+          {[...Array(MAX_SELECTED_EMOJI)].map((_, index) => (
             <div
               key={index}
               className={clsx(
