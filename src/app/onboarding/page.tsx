@@ -2,6 +2,7 @@
 
 import { useContext } from 'react';
 
+import Mz2moIcon from '@/assets/icons/mz2moLogo.svg';
 import Header from '@/components/header/Header';
 import { PlaylistButton } from '@/components/playlist';
 import { OnboardingContextValue } from '@/domains/onboarding/OnboardingContext';
@@ -15,7 +16,7 @@ const OnBoardingPage = () => {
   return (
     <>
       <Header
-        headerLeft={<h5 className="text-white text-h2">MZ2MO</h5>}
+        headerLeft={<Mz2moIcon />}
         headerRight={<PlaylistButton className="mb-auto" />}
       />
       <section className="my-auto">
