@@ -1,4 +1,0 @@
-.scrollEmojiSection {
-  transform: translate(0, var(--currentHeight));
-  transition: transform 330ms ease-in-out;
-}

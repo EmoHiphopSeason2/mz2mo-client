@@ -13,8 +13,6 @@ import {
 import { useThrottle } from '@/hooks/useThrottle';
 import { useToast } from '@/hooks/useToast';
 
-import styles from './SelectEmojiSection.module.css';
-
 const EMOJI_LIST = [
   '⌚️',
   '📱',
