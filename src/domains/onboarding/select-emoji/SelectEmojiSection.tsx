@@ -1,11 +1,16 @@
+'use client';
+
+import type { WheelEvent } from 'react';
 import { useContext, useRef, useState } from 'react';
 
 import clsx from 'clsx';
+import { PanInfo, motion } from 'framer-motion';
 
 import {
   OnboardingContextAction,
   OnboardingContextValue,
 } from '@/domains/onboarding/OnboardingContext';
+import { useThrottle } from '@/hooks/useThrottle';
 import { useToast } from '@/hooks/useToast';
 
 import styles from './SelectEmojiSection.module.css';
@@ -60,12 +65,24 @@ const EMOJI_LIST = [
 
 const SelectEmojiSection = () => {
   const selectBoxRef = useRef<HTMLDivElement | null>(null);
+  const { toast } = useToast();
 
+  const { throttle } = useThrottle();
+
+  /**
+   * 이모지 리스트 애니메이션, 보여줄 목록과 관련된 상수와 State 정의
+   */
+  const [currentEmojiPage, setCurrentEmojiPage] = useState(0);
+  const [pointerHeight, setPointerHeight] = useState<number | null>(null);
+
+  const MAX_PAGE = Math.floor(EMOJI_LIST.length / 9);
+  const EMOJI_SECTION_HEIGHT = selectBoxRef.current?.offsetHeight ?? 0;
+
+  /**
+   * 이모지 선택과 관련한 state 및 setState 함수 정의
+   */
   const { selectedEmojis } = useContext(OnboardingContextValue);
   const { setSelectedEmojis } = useContext(OnboardingContextAction);
-
-  const [currentPage, setCurrentPage] = useState(0);
-  const { toast } = useToast();
 
   const handleClickEmoji = (clickedEmoji: string) => {
     if (selectedEmojis.includes(clickedEmoji)) {
@@ -83,23 +100,26 @@ const SelectEmojiSection = () => {
         });
   };
 
-  const handleEmojiPage = (changed: number) => {
-    const nextPage = currentPage + changed;
-    if (nextPage < 0 || nextPage >= Math.floor(EMOJI_LIST.length / 9)) return;
-    setCurrentPage(nextPage);
+  /**
+   * WheelEvent, PointerEvent 발동 시 작동할 이벤트 핸들러 목록
+   */
+  const handleWheelEmojiSection = (event: WheelEvent<HTMLDivElement>) => {
+    const deltaY = event.nativeEvent.deltaY;
+
+    const nextPage = deltaY < 0 ? -1 : 1;
+    const updatedEmojiPage = currentEmojiPage + nextPage;
+
+    if (updatedEmojiPage < 0 || updatedEmojiPage >= MAX_PAGE) return;
+    setCurrentEmojiPage(updatedEmojiPage);
   };
 
-  const handleWheelEmoji = (event: React.WheelEvent<HTMLDivElement>) => {
-    const changed = event.nativeEvent.deltaY < 0 ? -1 : 1;
-    console.log(changed);
-    handleEmojiPage(changed);
-  };
+  const handlePanEmojiSection = (_: PointerEvent, info: PanInfo) => {
+    const nextPage = info.delta.y < 0 ? 1 : -1;
+    const updatedEmojiPage = currentEmojiPage + nextPage;
 
-  const emojiSectionStyle = {
-    '--currentHeight': `-${
-      currentPage * ((selectBoxRef.current?.offsetWidth || 448) + 16)
-    }px`,
-  } as React.CSSProperties;
+    if (updatedEmojiPage < 0 || updatedEmojiPage >= MAX_PAGE) return;
+    setCurrentEmojiPage(updatedEmojiPage);
+  };
 
   return (
     <>
@@ -128,14 +148,21 @@ const SelectEmojiSection = () => {
       <div
         ref={selectBoxRef}
         className="my-1.5 mx-4 overflow-hidden aspect-square"
-        onWheel={handleWheelEmoji}
       >
-        <div
-          style={emojiSectionStyle}
-          className={clsx(
-            styles.scrollEmojiSection,
-            'grid grid-cols-3 gap-x-2 gap-y-2.5 scroll-smooth',
-          )}
+        <motion.div
+          animate={{
+            transform: `translateY(${
+              -currentEmojiPage * (EMOJI_SECTION_HEIGHT + 8)
+            }px`,
+          }}
+          transition={{
+            ease: 'easeInOut',
+            type: 'spring',
+            duration: 0.33,
+          }}
+          className="grid grid-cols-3 gap-x-2 gap-y-2 scroll-smooth touch-none"
+          onWheel={throttle(handleWheelEmojiSection, 200)}
+          onPanStart={handlePanEmojiSection}
         >
           {EMOJI_LIST.map((emoji) => (
             <svg
@@ -168,15 +195,15 @@ const SelectEmojiSection = () => {
               <text
                 x="50%"
                 y="50%"
-                dominant-baseline="middle"
-                text-anchor="middle"
-                font-size="530%"
+                dominantBaseline="middle"
+                textAnchor="middle"
+                fontSize="530%"
               >
                 {emoji}
               </text>
             </svg>
           ))}
-        </div>
+        </motion.div>
       </div>
     </>
   );
