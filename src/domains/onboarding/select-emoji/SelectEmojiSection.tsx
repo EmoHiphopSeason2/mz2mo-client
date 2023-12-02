@@ -71,8 +71,6 @@ const SelectEmojiSection = () => {
    * 이모지 리스트 애니메이션, 보여줄 목록과 관련된 상수와 State 정의
    */
   const [currentEmojiPage, setCurrentEmojiPage] = useState(0);
-  const [pointerHeight, setPointerHeight] = useState<number | null>(null);
-
   const MAX_PAGE = Math.floor(EMOJI_LIST.length / 9);
   const EMOJI_SECTION_HEIGHT = selectBoxRef.current?.offsetHeight ?? 0;
 
