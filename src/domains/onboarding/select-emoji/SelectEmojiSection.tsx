@@ -113,7 +113,8 @@ const SelectEmojiSection = () => {
     setCurrentEmojiPage(updatedEmojiPage);
   };
 
-  const handlePanEmojiSection = (_: PointerEvent, info: PanInfo) => {
+  const handlePanEmojiSection = (event: PointerEvent, info: PanInfo) => {
+    event.stopPropagation();
     const nextPage = info.delta.y < 0 ? 1 : -1;
     const updatedEmojiPage = currentEmojiPage + nextPage;
 
