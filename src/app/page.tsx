@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import clsx from 'clsx';
 
+import Mz2moIcon from '@/assets/icons/mz2moLogo.svg';
 import BottomMusicPlayer from '@/components/bottom-player';
 import { Header } from '@/components/header';
 import { Playlist, PlaylistButton, usePlaylist } from '@/components/playlist';
@@ -67,7 +68,7 @@ export default function Home() {
   return (
     <div className="flex flex-col h-full min-h-screen bg-black">
       <Header
-        headerLeft="logo"
+        headerLeft={<Mz2moIcon />}
         headerRight={<PlaylistButton className="mb-auto" />}
       />
       <div className="flex flex-col flex-1 gap-10 py-8">

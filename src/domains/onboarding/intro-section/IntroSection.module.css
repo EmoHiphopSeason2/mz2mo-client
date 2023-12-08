@@ -1,0 +1,63 @@
+.scrollFromLeft {
+  animation: 20s linear 0s infinite normal forwards running scrolling-left;
+}
+
+.scrollFromRight {
+  animation: 20s linear 0s infinite normal forwards running scrolling-right;
+}
+
+.scrollFromLeft_duplicated {
+  animation: 20s linear 0s infinite normal none running scrolling-left-duplicated;
+}
+
+.scrollFromRight_duplicated {
+  animation: 20s linear 0s infinite normal none running scrolling-right-duplicated;
+}
+
+@keyframes scrolling-right {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+      transform: translateX(0);
+  }
+  50.01%{
+      transform: translateX(-200%);
+  }
+  100%{
+      transform: translateX(-100%);
+  }
+}
+
+@keyframes scrolling-right-duplicated {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+      transform: translateX(100%);
+  }
+}
+
+@keyframes scrolling-left {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+      transform: translateX(-100%);
+  }
+  50.01%{
+      transform: translateX(100%);
+  }
+  100%{
+      transform: translateX(0);
+  }
+}
+
+@keyframes scrolling-left-duplicated {
+  0% {
+      transform: translateX(0);
+  }
+  100% {
+      transform: translateX(-200%);
+  }
+}

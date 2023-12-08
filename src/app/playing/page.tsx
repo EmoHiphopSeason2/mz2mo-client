@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 
+import Mz2moIcon from '@/assets/icons/mz2moLogo.svg';
 import SearchIcon from '@/assets/icons/search.svg';
 import VoteIcon from '@/assets/icons/vote.svg';
 import EmojiPicker from '@/components/EmojiPicker';
@@ -65,12 +66,6 @@ const PlayingPage = () => {
           count: null,
         };
       });
-
-  const handleEmojiButton = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
-    console.log(e.target);
-  };
 
   return (
     <>

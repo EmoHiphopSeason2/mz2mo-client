@@ -22,6 +22,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={`${pretendard.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+        <link
+          rel="preconnect"
+          href="https://cdn.jsdelivr.net"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://cdn.jsdelivr.net/gh/toss/tossface/dist/tossface.css"
+          rel="stylesheet"
+          type="text/css"
+        />
+      </head>
       <body className="relative m-auto min-h-screen min-w-[360px] max-w-[480px] bg-gray-500">
         <ReactQueryProvider>
           <JotaiAtomProvider>{children}</JotaiAtomProvider>
